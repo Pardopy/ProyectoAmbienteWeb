@@ -3,14 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar sesión - AgroConnect</title>
+  <title>Perfil del Comprador - AgroConnect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <style>
-    /* Estilos generales */
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
       background-color: #f0f2f5;
       color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-image: url('https://previews.123rf.com/images/alessandrobiascioli/alessandrobiascioli2303/alessandrobiascioli230300036/201097467-grupo-de-agricultores-que-trabajan-en-tierras-agr%C3%ADcolas-concepto-de-estilo-de-vida-de-los.jpg');
+      background-size: cover;
+      background-position: center;
     }
 
     .contenedor {
@@ -20,10 +27,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px; /* Añadido para espaciado */
+      padding: 10px 20px;
     }
 
-    /* Estilos del header */
+    /* Header */
     header {
       background-color: #213435;
       color: #fff;
@@ -57,32 +64,34 @@
       text-decoration: underline;
     }
 
-    /* Estilos del formulario de inicio de sesión */
-    .seccion-inicio-sesion {
+    /* Formulario de perfil */
+    .seccion-registro {
       text-align: center;
-      margin-top: 50px;
+      margin: 50px auto;
+      flex: 1;
     }
 
-    .formulario-inicio-sesion {
+    .formulario-registro {
       background-color: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
+      max-width: 600px;
       margin: 0 auto;
     }
 
-    .formulario-inicio-sesion h2 {
+    .formulario-registro h2 {
       color: #213435;
     }
 
-    .formulario-inicio-sesion label {
+    .formulario-registro label {
       display: block;
       text-align: left;
       margin-top: 10px;
     }
 
-    .formulario-inicio-sesion input {
+    .formulario-registro input,
+    .formulario-registro textarea {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -91,8 +100,8 @@
       box-sizing: border-box;
     }
 
-    .formulario-inicio-sesion button {
-      width: 100%;
+    .formulario-registro button {
+      width: 48%;
       background-color: #213435;
       color: #fff;
       border: none;
@@ -100,59 +109,63 @@
       border-radius: 5px;
       cursor: pointer;
       margin-top: 10px;
+      margin-right: 4%;
     }
 
-    .formulario-inicio-sesion button:hover {
+    .formulario-registro button:hover {
       opacity: 0.8;
     }
 
-    .formulario-inicio-sesion p {
-      margin-top: 10px;
+    .formulario-registro .form-group {
+      margin-bottom: 15px;
     }
 
-    .formulario-inicio-sesion a {
-      color: #213435;
-      text-decoration: none;
-    }
-
-    .formulario-inicio-sesion a:hover {
-      text-decoration: underline;
-    }
-
-    /* Estilos del footer */
+    /* Footer */
     footer {
       background-color: #213435;
       color: #fff;
       padding: 20px 0;
       text-align: center;
-      position: absolute;
-      bottom: 0;
       width: 100%;
+      position: relative;
+      bottom: 0;
+    }
+
+    .contenedor-footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 10px;
     }
 
     .columna-pie-de-index {
       width: 33.33%;
-      display: inline-block;
-      vertical-align: top;
+      box-sizing: border-box;
+      padding: 0 10px;
+      text-align: center;
     }
 
     .columna-pie-de-index p,
     .columna-pie-de-index ul {
-      margin-bottom: 10px;
+      margin: 0;
     }
 
     .columna-pie-de-index nav ul {
       list-style-type: none;
       padding: 0;
+      margin: 0;
     }
 
     .columna-pie-de-index nav ul li {
-      margin-bottom: 5px;
+      margin: 5px 0;
     }
 
     .columna-pie-de-index nav ul li a {
       color: #fff;
       text-decoration: none;
+      display: block;
     }
 
     .columna-pie-de-index nav ul li a:hover {
@@ -166,9 +179,10 @@
       <a href="index.html" class="logotipo">AgroConnect</a>
       <nav>
         <ul>
-          <li><a href="about.html">Acerca de</a></li>
-          <li><a href="products.html">Productos</a></li>
-          <li><a href="howitworks.html">Cómo funciona</a></li>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="comofunciona.html">Cómo funciona</a></li>
           <li><a href="registro.html" class="boton boton-primario">Registrarse</a></li>
           <li><a href="login.html" class="boton boton-secundario">Iniciar sesión</a></li>
         </ul>
@@ -177,27 +191,42 @@
   </header>
 
   <main>
-    <section class="seccion-inicio-sesion">
-      <div class="formulario-inicio-sesion">
-        <h2>Iniciar sesión en AgroConnect</h2>
-        <form id="loginForm">
+    <section class="seccion-registro">
+      <div class="formulario-registro">
+        <h2>Editar Perfil del Agricultor</h2>
+        <form id="profileForm">
+          <div class="form-group">
+            <label for="fotoPerfil">Fotografía del perfil:</label>
+            <input type="file" id="fotoPerfil" name="fotoPerfil">
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
           <div class="form-group">
             <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" class="form-control" required>
+            <input type="email" id="email" name="email" required>
           </div>
           <div class="form-group">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+            <label for="telefono">Número de teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
           </div>
-          <button type="submit" class="boton boton-primario">Iniciar sesión</button>
-          <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+          <div class="form-group">
+            <label for="productos">Tipo de productos:</label>
+            <input type="text" id="productos" name="productos" required>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+          </div>
+          <button type="submit">Guardar cambios</button>
         </form>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="contenedor">
+    <div class="contenedor-footer">
       <div class="columna-pie-de-index">
         <p>&copy; 2024 AgroConnect</p>
       </div>
@@ -207,7 +236,7 @@
             <li><a href="#">Acerca de</a></li>
             <li><a href="#">Productos</a></li>
             <li><a href="#">Cómo funciona</a></li>
-            <li><a href="terminos.html">Términos y condiciones</a></li>
+            <li><a href="TerminosCondiciones.html">Términos y condiciones</a></li>
           </ul>
         </nav>
       </div>
