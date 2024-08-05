@@ -249,3 +249,91 @@
   .div-bg-soporte {
     background-color: rgba(0, 0, 0, 0.7);
   }
+
+  /* Formulario de perfil */
+  .seccion-registro {
+    text-align: center;
+    margin: 50px auto;
+    flex: 1;
+  }
+
+  .formulario-registro {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .formulario-registro h2 {
+    color: #213435;
+  }
+
+  .formulario-registro label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .formulario-registro input,
+  .formulario-registro textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .formulario-registro button {
+    width: 48%;
+    background-color: #213435;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 4%;
+  }
+
+  .formulario-registro button:hover {
+    opacity: 0.8;
+  }
+
+  .formulario-registro .form-group {
+    margin-bottom: 15px;
+  }
+
+  form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--primary-color); /* Color de las etiquetas */
+  }
+  
+  form input[type="text"],
+  form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: var(--primary-color); /* Color del botón */
+    color: var(--secondary-color); /* Color del texto del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  form button[type="submit"]:hover {
+    background-color: var(--button-hover-color); /* Color al pasar el cursor */
+  }
