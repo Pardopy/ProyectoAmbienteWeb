@@ -88,7 +88,8 @@
       margin-top: 10px;
     }
 
-    .formulario-registro input {
+    .formulario-registro input,
+    .formulario-registro select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -212,6 +213,14 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" class="form-control" required>
           </div>
+          <div class="form-group">
+            <label for="tipoUsuario">Soy:</label>
+            <select id="tipoUsuario" name="tipoUsuario" class="form-control" required>
+              <option value="">Seleccione una opción</option>
+              <option value="agricultor">Agricultor</option>
+              <option value="comprador">Comprador</option>
+            </select>
+          </div>
           <button type="submit" class="boton boton-primario">Registrarse</button>
           <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
         </form>
@@ -246,7 +255,5 @@
   </footer>
 
   <script src="registro.js"></script>
-
-
 </body>
 </html>

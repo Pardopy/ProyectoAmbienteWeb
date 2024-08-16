@@ -199,7 +199,7 @@
       <div class="contenedor">
         <h2>Foro y Comunidad</h2>
         
-        <div class="publicaciones">
+        <div class="publicaciones" id="publicaciones">
           <div class="publicacion">
             <h3>Título de la Publicación</h3>
             <p class="autor">Por Juan Pérez</p>
@@ -207,7 +207,8 @@
             <p class="contenido">
               Contenido de la publicación. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
-            <a href="#" class="boton boton-secundario">Leer más</a>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
 
           <!-- Ejemplo de otra publicación -->
@@ -218,13 +219,14 @@
             <p class="contenido">
               Contenido de otra publicación. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <a href="#" class="boton boton-secundario">Leer más</a>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
         </div>
 
         <div class="crear-publicacion">
           <h3>Crear Nueva Publicación</h3>
-          <form action="#">
+          <form id="nueva-publicacion-form">
             <div class="form-group">
               <label for="titulo">Título</label>
               <input type="text" id="titulo" name="titulo" required>
@@ -265,5 +267,7 @@
       </div>
     </div>
   </footer>
+
+  <script src="foro.js"></script>
 </body>
 </html>
