@@ -1,0 +1,85 @@
+<?php
+class connModel {
+    
+    // Conexion con DB
+    private static function connect() {
+
+        try {
+            
+            $conn = mysqli_connect(
+                '#', // Host: localhost
+                '#', // Usuario: root
+                '#', // Contraseña: root
+                '#', // DB: awcs_proyecto
+            );
+
+            return $conn;
+
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+    }
+
+    // Desconexion con DB
+    private static function disconnect($conn, $result) {
+
+        try {
+            
+            mysqli_close($conn);
+            mysqli_free_result($result);
+
+            // if ($result instanceof mysqli_result) {
+            //     mysqli_free_result($result);
+            // }
+            // mysqli_close($conn);
+
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+    }
+}
+
+//SCRIPT del Foro
+function insertarForo($titulo, $descripcion) {
+    global $conn;
+    $sql = "INSERT INTO Foros (titulo, descripcion) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $titulo, $descripcion);
+    return $stmt->execute();
+}
+
+function actualizarForo($foro_id, $titulo, $descripcion) {
+    global $conn;
+    $sql = "UPDATE Foros SET titulo = ?, descripcion = ? WHERE foro_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $titulo, $descripcion, $foro_id);
+    return $stmt->execute();
+}
+
+function eliminarForo($foro_id) {
+    global $conn;
+    $sql = "DELETE FROM Foros WHERE foro_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $foro_id);
+    return $stmt->execute();
+}
+
+function obtenerForoPorId($foro_id) {
+    global $conn;
+    $sql = "SELECT * FROM Foros WHERE foro_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $foro_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+function obtenerTodosLosForos() {
+    global $conn;
+    $sql = "SELECT * FROM Foros";
+    return $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+}
+
+
+?>
