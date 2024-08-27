@@ -321,6 +321,34 @@
 
             </div>
         </div>
+
+        <!-- Busqueda Avanzada -->
+        <section class="position-absolute ">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <div class="search-container">
+                        <h1>Búsqueda Avanzada</h1>
+                        <form id="search-form">
+                            <label for="keyword">Palabra Clave:</label>
+                            <input type="text" id="keyword" name="keyword" placeholder="Ingrese palabra clave">
+                
+                            <label for="category">Categoría:</label>
+                            <select id="category" name="category">
+                                <option value="cat1">Categoria 1</option>
+                                <option value="cat2">Categoria 2</option>
+                                <option value="cat3">Categoria 3L</option>
+                                <option value="cat4">Categoria 4</option>
+                            </select>
+                            <button type="button" onclick="performSearch()">Buscar</button>
+                        </form>
+                        <div id="search-results" class="search-results"></div>
+                    </div>
+                </div>
+              </div>
+            <script src="script.js"></script>
+
+          </section>
+
     </main>
   
 
@@ -340,7 +368,7 @@
           </ul>
         </nav>
       </div>
-      <div class="columna-pie-de-index">
+      <div c    lass="columna-pie-de-index">
         <nav>
           <ul>
             <li><a class="boton boton-primario" href="../html-heymmy/Registro.html">Registrarse</a></li>
