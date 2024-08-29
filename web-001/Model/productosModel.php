@@ -29,6 +29,22 @@
             }
         }
 
+        // Metodo para buscar los productos por nombre
+        public static function getProductsByName($data) {
+            try {
+                // Formatted string para la consulta
+                $formattedStr = "'" . $data['keyword'] . "'";
+
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL GetProductosByNombre($formattedStr);");
+
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
     }
 
 ?>

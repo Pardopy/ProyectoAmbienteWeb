@@ -33,6 +33,23 @@
 
         }
 
+        // Metodo para buscar los productos por nombre
+        public static function getProductsByName($data) {
+
+            try {
+
+                // Se llama al metodo del modelo para obtener los productos por nombre
+                $result = productosModel::getProductsByName($data);
+                print_r($result);
+                // header('Location: ../html-kevin/productos.php');
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+        }
+
     }
 
 ?>

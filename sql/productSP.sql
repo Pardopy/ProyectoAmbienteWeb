@@ -73,3 +73,22 @@ CREATE PROCEDURE GetProductosByCategoria(
 BEGIN
     SELECT * FROM Productos WHERE categoria_id = p_categoria_id;
 END //
+
+-- Obtener productos por nombre
+DELIMITER //
+CREATE PROCEDURE GetProductosByNombre(
+    IN p_nombre_producto VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM Productos WHERE nombre_producto LIKE CONCAT('%', p_nombre_producto, '%');
+END //
+
+-- Obtener productos por categoria y nombre
+DELIMITER //
+CREATE PROCEDURE GetProductosByCategoriaAndNombre(
+    IN p_categoria_id INT,
+    IN p_nombre_producto VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM Productos WHERE categoria_id = p_categoria_id AND nombre_producto LIKE CONCAT('%', p_nombre_producto, '%');
+END //
