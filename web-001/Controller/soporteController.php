@@ -12,7 +12,7 @@
                 $response = soporteModel::addSupportTicket($data);
                 print_r($response);
 
-                // header('Location: ../html-kevin/soporte-enviado.html');
+                header('Location: ../html-kevin/soporte-enviado.html');
 
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();

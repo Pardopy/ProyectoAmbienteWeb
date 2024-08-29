@@ -2,22 +2,22 @@
     // Imports
     require_once('../../Controller/soporteController.php');
 
-    // if (isset($_GET['action'])) {
+    if (isset($_GET['action'])) {
       
-    //   switch ($_GET['action']) {
-    //     case 'submitTicket':
-    //         soporteController::addSupportTicket($_POST);
-    //         print_r($_POST);  
+      switch ($_GET['action']) {
+        case 'submitTicket':
+            soporteController::addSupportTicket($_POST);
+            print_r($_POST);  
 
-    //         break;
-    //   }
-    // }
+            break;
+      }
+    }
     
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      echo '<pre>';
-      print_r($_POST);
-      echo '</pre>';
-  }
+  //   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //     echo '<pre>';
+  //     print_r($_POST);
+  //     echo '</pre>';
+  //  }
   
 
 ?>
