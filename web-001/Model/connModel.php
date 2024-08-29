@@ -8,10 +8,10 @@ class connModel {
         try {
             
             $conn = mysqli_connect(
-                '#', // Host: localhost
-                '#', // Usuario: root
-                '#', // Contraseña: root
-                '#', // DB: awcs_proyecto
+                'localhost', // Host: localhost
+                'root', // Usuario: root
+                'root', // Contraseña: root
+                'agroconnect', // DB: awcs_proyecto
             );
 
             return $conn;
@@ -27,8 +27,8 @@ class connModel {
 
         try {
             
-            mysqli_close($conn);
-            mysqli_free_result($result);
+            // mysqli_close($conn);
+            // mysqli_free_result($result);
 
             if ($result instanceof mysqli_result) {
                 mysqli_free_result($result);
@@ -75,16 +75,21 @@ class connModel {
 
             if ($sqlOutput['success']) {
 
-                while ($row = mysqli_fetch_array($sqlOutput['success'], MYSQLI_ASSOC)) {
-
-                    $rows[] = $row;
-
+                if (!is_bool($sqlOutput['success'])) {
+                    while ($row = mysqli_fetch_assoc($sqlOutput['success'])) {
+                        $rows[] = $row;
+                    }
                 }
 
                 self::disconnect($sqlOutput['conn'], $sqlOutput);
 
                 return $rows;
 
+            } else {
+                self::disconnect($sqlOutput['conn'], $sqlOutput['success']);
+
+                echo "Error: " . $sqlOutput['error'];
+                return $sqlOutput['error'];
             }
 
         } catch (Exception $e) {
@@ -92,7 +97,6 @@ class connModel {
         }
 
     }
-
 
 }
 
