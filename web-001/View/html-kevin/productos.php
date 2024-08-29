@@ -3,7 +3,35 @@
     require_once('../../Controller/productosController.php');
 
     // Fetch all the products
-    $listadoProductos = productosController::getAllProducts();
+    // $listadoProductos = productosController::getAllProducts();
+
+    // Verificar si se ha enviado el formulario de busqueda
+     if (isset($_GET['action'])) {
+        
+        switch ($_GET['action']) {
+            case 'searchProducts':
+                // if ($_POST['categoria_id'] == 0 && $_POST['keyword'] == "") {
+                //     $listadoProductos = productosController::getAllProducts();
+                // } elseif ($_POST['categoria_id'] == 0 && $_POST['keyword'] != "") {
+                //     $listadoProductos = productosController::getProductsByKeyword($_POST);
+                // } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] == "") {
+                //     $listadoProductos = productosController::getProductsByCategory($_POST);
+                // } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] != "") {
+                //     $listadoProductos = productosController::getProductsByCategoryAndKeyword($_POST);
+                // }
+
+                if ($_POST['categoria_id'] == 0 && $_POST['keyword'] == "") {
+                    $listadoProductos = productosController::getAllProducts();
+                } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] == "") {
+                    $listadoProductos = productosController::getProductsByCategory($_POST);
+                }
+
+                break;
+        }
+            
+     } else {
+        $listadoProductos = productosController::getAllProducts();
+     }
 
 ?>
 
@@ -64,12 +92,13 @@
                     <div class="card-body">
                         <div class="search-container">
                             <h3>Búsqueda</h3>
-                            <form id="search-form">
+                            <form action="../html-kevin/productos.php?action=searchProducts" method="POST"
+                                id="search-form">
                                 <label for="keyword">Palabra Clave:</label>
                                 <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Ingrese palabra clave">
                     
                                 <label for="category">Categoría:</label>
-                                <select class="form-select mb-3" name="category" id="category" aria-label="Categoría">
+                                <select class="form-select mb-3" name="categoria_id" id="categoria_id" aria-label="categoria_id">
                                     <option value="0">Sin Categoría</option>
                                     <option value="1">Categoría 1</option>
                                     <option value="2">Categoría 2</option>

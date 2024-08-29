@@ -64,3 +64,12 @@ BEGIN
     DELETE FROM Productos WHERE producto_id = p_producto_id;
 END //
 DELIMITER ;
+
+-- Obtener productos por categoria
+DELIMITER //
+CREATE PROCEDURE GetProductosByCategoria(
+    IN p_categoria_id INT
+)
+BEGIN
+    SELECT * FROM Productos WHERE categoria_id = p_categoria_id;
+END //
