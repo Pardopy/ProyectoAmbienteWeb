@@ -1,45 +1,6 @@
 <?php
-class connModel {
-    
-    // Conexion con DB
-    private static function connect() {
-
-        try {
-            
-            $conn = mysqli_connect(
-                '#', // Host: localhost
-                '#', // Usuario: root
-                '#', // Contraseña: root
-                '#', // DB: awcs_proyecto
-            );
-
-            return $conn;
-
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-
-    }
-
-    // Desconexion con DB
-    private static function disconnect($conn, $result) {
-
-        try {
-            
-            mysqli_close($conn);
-            mysqli_free_result($result);
-
-            // if ($result instanceof mysqli_result) {
-            //     mysqli_free_result($result);
-            // }
-            // mysqli_close($conn);
-
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-
-    }
-}
+// Incluir el archivo connModel.php
+include_once 'connModel.php';
 
 //SCRIPT del Foro
 function insertarForo($titulo, $descripcion) {
