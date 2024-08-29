@@ -178,21 +178,17 @@
   </style>
 </head>
 <body>
-
-  <!-- Header modificado -->
   <header>
     <div class="contenedor">
-      <a href="../html-otros/Index.html" class="logotipo">AgroConnect</a>
-      
+      <a href="index.html" class="logotipo">AgroConnect</a>
       <nav>
         <ul>
-          <li><a href="../html-otros/Index.html">Inicio</a></li>
-          <li><a href="../html-kevin/productos.html">Productos</a></li>
-          <li><a href="../html-otros/GestionPedidos.html">Pedidos</a></li>
-          <li><a href="../html-heymmy/Foro.html">Foro</a></li>
-          <li><a href="../html-kevin/soporte.html">Soporte</a></li>
-          <li><a href="../html-heymmy/Registro.html" class="boton boton-primario">Registrarse</a></li>
-          <li><a href="../html-otros/login.html" class="boton boton-secundario">Iniciar sesión</a></li>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="comofunciona.html">Cómo funciona</a></li>
+          <li><a href="perfil.html" class="boton boton-primario">Perfil</a></li>
+          <li><a href="logout.html" class="boton boton-secundario">Cerrar sesión</a></li>
         </ul>
       </nav>
     </div>
@@ -203,7 +199,7 @@
       <div class="contenedor">
         <h2>Foro y Comunidad</h2>
         
-        <div class="publicaciones">
+        <div class="publicaciones" id="publicaciones">
           <div class="publicacion">
             <h3>Título de la Publicación</h3>
             <p class="autor">Por Juan Pérez</p>
@@ -211,7 +207,8 @@
             <p class="contenido">
               Contenido de la publicación. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
-            <a href="#" class="boton boton-secundario">Leer más</a>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
 
           <!-- Ejemplo de otra publicación -->
@@ -222,13 +219,14 @@
             <p class="contenido">
               Contenido de otra publicación. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <a href="#" class="boton boton-secundario">Leer más</a>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
         </div>
 
         <div class="crear-publicacion">
           <h3>Crear Nueva Publicación</h3>
-          <form action="#">
+          <form id="nueva-publicacion-form">
             <div class="form-group">
               <label for="titulo">Título</label>
               <input type="text" id="titulo" name="titulo" required>
@@ -244,31 +242,32 @@
     </section>
   </main>
 
-  <!-- Footer modificado -->
   <footer>
-    <div class="contenedor">
+    <div class="contenedor-footer">
       <div class="columna-pie-de-index">
         <p>&copy; 2024 AgroConnect</p>
       </div>
       <div class="columna-pie-de-index">
         <nav>
           <ul>
-            <li><a href="../html-otros/HerraBenAgri.html">Herramientas</a></li>
-            <li><a href="../html-heymmy/Certificaciones.html">Certificaciones</a></li>
-            <li><a href="../html-otros/TerminosCondiciones.html">Términos y condiciones</a></li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Cómo funciona</a></li>
+            <li><a href="TerminosCondiciones.html">Términos y condiciones</a></li>
           </ul>
         </nav>
       </div>
       <div class="columna-pie-de-index">
         <nav>
           <ul>
-            <li><a class="boton boton-primario" href="../html-heymmy/Registro.html">Registrarse</a></li>
-            <li><a class="boton boton-secundario" href="../html-otros/login.html">Iniciar sesión</a></li>
+            <li><a href="registro.html">Registrarse</a></li>
+            <li><a href="login.html">Iniciar sesión</a></li>
           </ul>
         </nav>
       </div>
     </div>
   </footer>
-  
+
+  <script src="foro.js"></script>
 </body>
 </html>
