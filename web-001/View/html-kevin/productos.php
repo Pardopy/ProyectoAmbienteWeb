@@ -24,6 +24,8 @@
                     $listadoProductos = productosController::getAllProducts();
                 } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] == "") {
                     $listadoProductos = productosController::getProductsByCategory($_POST);
+                } elseif ($_POST['categoria_id'] == 0 && $_POST['keyword'] != "") {
+                    $listadoProductos = productosController::getProductsByName($_POST);
                 }
 
                 break;
