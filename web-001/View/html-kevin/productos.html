@@ -48,6 +48,33 @@
 
     <main class="main-bg-soporte">
         <div class="div-bg-soporte">
+            <!-- Busqueda Avanzada -->
+            <section class="position-sticky">
+                <div class="card position-absolute top-0 end-0 me-5 mt-5" style="width: 20rem;">
+                    <div class="card-body">
+                        <div class="search-container">
+                            <h3>Búsqueda</h3>
+                            <form id="search-form">
+                                <label for="keyword">Palabra Clave:</label>
+                                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Ingrese palabra clave">
+                    
+                                <label for="category">Categoría:</label>
+                                <select class="form-select mb-3" name="category" id="category" aria-label="Categoría">
+                                    <option value="0">Sin Categoría</option>
+                                    <option value="1">Categoría 1</option>
+                                    <option value="2">Categoría 2</option>
+                                    <option value="3">Categoría 3</option>
+                                  </select>
+
+                                <button type="submit" class="btn text-light fw-bold" style="background-color: #648A64;" onclick="performSearch()">Buscar</button>
+                            </form>
+                            <div id="search-results" class="search-results"></div>
+                        </div>
+                    </div>
+                </div>
+                <script src="script.js"></script>
+            </section>
+
             <!-- <div class="container-fluid d-flex justify-content-center align-items-center"> -->
             <div class="container text-center pt-5">
                 
@@ -320,34 +347,10 @@
                 </div>
 
             </div>
+
+            
+
         </div>
-
-        <!-- Busqueda Avanzada -->
-        <section class="position-absolute ">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <div class="search-container">
-                        <h1>Búsqueda Avanzada</h1>
-                        <form id="search-form">
-                            <label for="keyword">Palabra Clave:</label>
-                            <input type="text" id="keyword" name="keyword" placeholder="Ingrese palabra clave">
-                
-                            <label for="category">Categoría:</label>
-                            <select id="category" name="category">
-                                <option value="cat1">Categoria 1</option>
-                                <option value="cat2">Categoria 2</option>
-                                <option value="cat3">Categoria 3L</option>
-                                <option value="cat4">Categoria 4</option>
-                            </select>
-                            <button type="button" onclick="performSearch()">Buscar</button>
-                        </form>
-                        <div id="search-results" class="search-results"></div>
-                    </div>
-                </div>
-              </div>
-            <script src="script.js"></script>
-
-          </section>
 
     </main>
   

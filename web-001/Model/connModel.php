@@ -30,10 +30,10 @@ class connModel {
             mysqli_close($conn);
             mysqli_free_result($result);
 
-            // if ($result instanceof mysqli_result) {
-            //     mysqli_free_result($result);
-            // }
-            // mysqli_close($conn);
+            if ($result instanceof mysqli_result) {
+                mysqli_free_result($result);
+            }
+            mysqli_close($conn);
 
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
