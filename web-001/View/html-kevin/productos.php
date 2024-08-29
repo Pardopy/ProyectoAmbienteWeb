@@ -26,6 +26,8 @@
                     $listadoProductos = productosController::getProductsByCategory($_POST);
                 } elseif ($_POST['categoria_id'] == 0 && $_POST['keyword'] != "") {
                     $listadoProductos = productosController::getProductsByName($_POST);
+                } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] != "") {
+                    $listadoProductos = productosController::getProductsByCategoryAndName($_POST);
                 }
 
                 break;
@@ -53,7 +55,7 @@
   <!-- BootStrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-
+<body>
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
@@ -86,7 +88,7 @@
   </section>
 
     <main class="main-bg-soporte">
-        <div class="div-bg-soporte pb-5">
+        <div class="div-bg-soporte pb-5" style="height: 75%;">
             <!-- Busqueda Avanzada -->
             
             <section class="position-sticky">
@@ -120,56 +122,75 @@
             <!-- <div class="container-fluid d-flex justify-content-center align-items-center"> -->
             <div class="container text-center pt-5">
                 
-                <div class="row">
-                    <?php
-                        foreach ($listadoProductos as $producto) {
-                    ?>
-                    <div class="col-lg-4 col-md-12">
-                        <!-- Tarjeta de Producto -->
-                        <div class="card border-0 shadow rounded-0 mb-5" style="width: 18rem;">
-                            <img src="<?=$producto['imagen_producto']?>" class="card-img-top rounded-0" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <h4 class="card-title"><a class="text-decoration-none text-dark" href="../html-otros/DetalleProducto.html"><?=$producto['nombre_producto']?></a></h4>
-                                        <p class="card-text">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            (4)
-                                        </p>
-                                    </div>
-                                    <div class="col-2 d-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                                            <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row align-items-center text-center g-0">
-                                <div class="col-4">
-                                    <h5>$<?=$producto['precio']?></h5>
-                                </div>
-                                <div class="col-8">
-                                    <!-- <a href="#" class="btn btn-dark w-100 p-3 rounded-0 text-warning">AÑADIR AL CARRITO</a> -->
-                                    <a href="#" class="btn text-light w-100 p-3 rounded-0 " style="background-color: #648A64;">AÑADIR AL CARRITO</a>
-                                </div>
-                            </div>
-                        </div>                
+                <?php
+                    if ($listadoProductos == null) {
+                ?>
+
+                <div class="container-fluid text-center">
+                    <div class="justify-content-center align-items-center">
+                        <h1 class="text-center text-light position-absolute top-50 start-50 translate-middle">No se encontraron productos :(</h1>
                     </div>
-                    <?php
-                        }
-                    ?>
+                </div>
+                <?php
+                    } else {
+                ?>
+
+                    <div class="row">
+                        <?php
+                            foreach ($listadoProductos as $producto) {
+                        ?>
+                        <div class="col-lg-4 col-md-12">
+                            <!-- Tarjeta de Producto -->
+                            <div class="card border-0 shadow rounded-0 mb-5" style="width: 18rem;">
+                                <img src="<?=$producto['imagen_producto']?>" class="card-img-top rounded-0" alt="...">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h4 class="card-title"><a class="text-decoration-none text-dark" href="../html-otros/DetalleProducto.html"><?=$producto['nombre_producto']?></a></h4>
+                                            <p class="card-text">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                </svg>
+                                                (4)
+                                            </p>
+                                        </div>
+                                        <div class="col-2 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                                                <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center text-center g-0">
+                                    <div class="col-4">
+                                        <h5>$<?=$producto['precio']?></h5>
+                                    </div>
+                                    <div class="col-8">
+                                        <!-- <a href="#" class="btn btn-dark w-100 p-3 rounded-0 text-warning">AÑADIR AL CARRITO</a> -->
+                                        <a href="#" class="btn text-light w-100 p-3 rounded-0 " style="background-color: #648A64;">AÑADIR AL CARRITO</a>
+                                    </div>
+                                </div>
+                            </div>                
+                        </div>
+                        <?php
+                            }
+                        ?>
+
+                    </div>
+                <?php
+                    }
+                ?>
+                    
 
                     <!-- <div class="col-lg-4 col-md-12 mb-4"> -->
                         <!-- Tarjeta de Producto -->
