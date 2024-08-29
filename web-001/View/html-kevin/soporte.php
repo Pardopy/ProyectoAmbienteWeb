@@ -1,3 +1,27 @@
+<?php
+    // Imports
+    require_once('../../Controller/soporteController.php');
+
+    // if (isset($_GET['action'])) {
+      
+    //   switch ($_GET['action']) {
+    //     case 'submitTicket':
+    //         soporteController::addSupportTicket($_POST);
+    //         print_r($_POST);  
+
+    //         break;
+    //   }
+    // }
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      echo '<pre>';
+      print_r($_POST);
+      echo '</pre>';
+  }
+  
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -118,38 +142,40 @@
           <!-- Formulario -->
           <div class="col-xl-6">
             <h2 class="pb-4 text-light">¡Envíanos un mensaje!</h2>
-            <div class="row g-4">
-              <div class="col-6 mb-3">
-                <label for="nombre" class="form-label text-light">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="John">
+            <form action="../html-kevin/soporte.php?action=submitTicket" method="POST" id="soporte-form">
+              <div class="row g-4">
+                <div class="col-6 mb-3">
+                  <label for="nombre" class="form-label text-light">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="John" required>
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="apellido" class="form-label text-light">Apellido</label>
+                  <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Doe" required>
+                </div>
               </div>
-              <div class="col-6 mb-3">
-                <label for="apellido" class="form-label text-light">Apellido</label>
-                <input type="text" class="form-control" id="apellido" placeholder="Doe">
+              <div class="mb-3">
+                <label for="correo" class="form-label text-light">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" placeholder="john@doe.com" required>
               </div>
-            </div>
-            <div class="mb-3">
-              <label for="correo" class="form-label text-light">Correo</label>
-              <input type="email" class="form-control" id="correo" placeholder="john@doe.com">
-            </div>
-            <div class="mb-3">
-              <label for="telefono" class="form-label text-light">Teléfono</label>
-              <input type="tel" class="form-control" id="telefono" placeholder="+506 8888 0000">
-            </div>
-            <div class="mb-3">
-              <label for="contactoTema" class="form-label text-light">Tema</label>
-              <select class="form-select">
-                <option value="1">Cotización</option>
-                <option value="2">Soporte</option>
-                <option value="2">Sugerencia</option>
-                <option value="2">Reportes</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="mensaje" class="form-label text-light">Mensaje</label>
-              <textarea class="form-control" id="mensaje" rows="3" placeholder="Escribe tu mensaje aquí..."></textarea>
-            </div>
-            <button type="button" class="btn text-light fw-bold" style="background-color: #648A64;">Enviar mensaje</button>
+              <div class="mb-3">
+                <label for="telefono" class="form-label text-light">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+506 8888 0000" required>
+              </div>
+              <div class="mb-3">
+                <label for="tema" class="form-label text-light">Tema</label>
+                <select class="form-select" id="tema" name="tema">
+                  <option value="Cotización">Cotización</option>
+                  <option value="Soporte">Soporte</option>
+                  <option value="Sugerencia">Sugerencia</option>
+                  <option value="Reportes">Reportes</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="mensaje" class="form-label text-light" required>Mensaje</label>
+                <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Escribe tu mensaje aquí..."></textarea>
+              </div>
+              <button type="submit" class="btn text-light fw-bold" style="background-color: #648A64;">Enviar mensaje</button>
+            </form>
           </div>
         </div>
       </div>

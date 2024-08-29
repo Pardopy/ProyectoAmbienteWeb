@@ -58,3 +58,32 @@ BEGIN
     DELETE FROM Soporte_Ayuda WHERE ticket_id = p_ticket_id;
 END //
 DELIMITER ;
+
+CREATE TABLE Soporte (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL,
+    telefono VARCHAR(12) NOT NULL,
+    tema VARCHAR(50) NOT NULL,
+    mensaje TEXT NOT NULL,
+    estado_ticket ENUM('Abierto', 'En progreso', 'Cerrado') NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- SPs para la nueva tabla de Soporte
+
+-- Insertar un nuevo ticket de soporte
+DELIMITER //
+CREATE PROCEDURE InsertSoporte(
+    IN p_nombre VARCHAR(255),
+    IN p_apellido VARCHAR(255),
+    IN p_correo VARCHAR(255),
+    IN p_telefono VARCHAR(12),
+    IN p_tema VARCHAR(50),
+    IN p_mensaje TEXT
+)
+BEGIN
+    INSERT INTO Soporte (nombre, apellido, correo, telefono, tema, mensaje, estado_ticket)
+    VALUES (p_nombre, p_apellido, p_correo, p_telefono, p_tema, p_mensaje, 'Abierto');
+END //
+DELIMITER ;

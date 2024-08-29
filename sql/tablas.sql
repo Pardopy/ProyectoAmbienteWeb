@@ -93,6 +93,18 @@ CREATE TABLE Soporte_Ayuda (
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
 );
 
+CREATE TABLE Soporte (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL,
+    telefono VARCHAR(12) NOT NULL,
+    tema VARCHAR(50) NOT NULL,
+    mensaje TEXT NOT NULL,
+    estado_ticket ENUM('Abierto', 'En progreso', 'Cerrado') NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE Recursos_Herramientas (
     recurso_id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
