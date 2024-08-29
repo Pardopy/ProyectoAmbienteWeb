@@ -45,6 +45,22 @@
             }
         }
 
+        // Metodo para buscar los productos por nombre y categoria
+        public static function getProductsByCategoryAndName($data) {
+            try {
+                // Formatted string para la consulta
+                $formattedStr = "'" . $data['categoria_id'] . "', '" . $data['keyword'] . "'";
+
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL GetProductosByCategoriaAndNombre($formattedStr);");
+
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
     }
 
 ?>
