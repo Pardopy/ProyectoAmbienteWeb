@@ -1,25 +1,16 @@
 <?php
     // Imports
     require_once('../../Controller/productosController.php');
-
-    // Fetch all the products
-    // $listadoProductos = productosController::getAllProducts();
+    require_once('../../Controller/categoriaController.php');
+    
+    // Iniciar la variable de categorias
+    $listadoCategorias = categoriaController::getAllCategories();
 
     // Verificar si se ha enviado el formulario de busqueda
      if (isset($_GET['action'])) {
         
         switch ($_GET['action']) {
             case 'searchProducts':
-                // if ($_POST['categoria_id'] == 0 && $_POST['keyword'] == "") {
-                //     $listadoProductos = productosController::getAllProducts();
-                // } elseif ($_POST['categoria_id'] == 0 && $_POST['keyword'] != "") {
-                //     $listadoProductos = productosController::getProductsByKeyword($_POST);
-                // } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] == "") {
-                //     $listadoProductos = productosController::getProductsByCategory($_POST);
-                // } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] != "") {
-                //     $listadoProductos = productosController::getProductsByCategoryAndKeyword($_POST);
-                // }
-
                 if ($_POST['categoria_id'] == 0 && $_POST['keyword'] == "") {
                     $listadoProductos = productosController::getAllProducts();
                 } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] == "") {
@@ -104,9 +95,13 @@
                                 <label for="category">Categoría:</label>
                                 <select class="form-select mb-3" name="categoria_id" id="categoria_id" aria-label="categoria_id">
                                     <option value="0">Sin Categoría</option>
-                                    <option value="1">Categoría 1</option>
-                                    <option value="2">Categoría 2</option>
-                                    <option value="3">Categoría 3</option>
+                                    <?php 
+                                        foreach ($listadoCategorias as $categoria) {
+                                    ?>
+                                    <option value="<?=$categoria['categoria_id']?>"><?=$categoria['nombre_categoria']?></option>
+                                    <?php 
+                                        }
+                                    ?>
                                   </select>
 
                                 <button type="submit" class="btn text-light fw-bold" style="background-color: #648A64;" onclick="performSearch()">Buscar</button>

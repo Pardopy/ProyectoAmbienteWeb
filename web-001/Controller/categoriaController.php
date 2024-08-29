@@ -1,15 +1,16 @@
 <?php
     // Imports
-    require_once(__DIR__ . '/connModel.php');
+    require_once(__DIR__ . '/../Model/categoriaModel.php');
 
-    class categoriaModel {
+    class categoriaController {
         // Metodo para obtener todas las categorias
         public static function getAllCategories() {
             try {
-                return connModel::fetchData("CALL GetAllCategorias();");
+                return categoriaModel::getAllCategories();
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
         }
     }
+
 ?>
