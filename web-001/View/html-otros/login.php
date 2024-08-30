@@ -1,20 +1,43 @@
+<?php
+    // Imports
+    require_once('../../Controller/loginController.php');
+
+    // Se verifica si se ha enviado un action por GET
+    if (isset($_GET['action'])) {
+        
+      // Se verifica el valor del action
+      switch ($_GET['action']) {
+
+          // Si el action es login
+          case 'login':
+
+              // Se llama a la función login del controller
+              loginController::login($_POST);
+              break;
+          
+          // Si el action es logout
+          case 'logout':
+
+              // Se llama a la función logout del controller
+              loginController::logout();
+              break;
+      }
+
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="3;url=perfilComprador.php">
-  <title>AgroConnect - Pefil</title>
-
-  <!-- Fonts -->
+  <title>Iniciar Sesión - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="styleKevin.css">
-
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body>
+  <script src="js.js"></script>
 
   <!-- Header modificado -->
   <header>
@@ -35,21 +58,24 @@
     </div>
   </header>
 
-    <main class="main-bg-soporte">
-        <div class="div-bg-soporte d-flex" style="height: 75vh;">
-            <div class="container py-5">
-
-                <div class="d-flex align-items-center justify-content-center h-100">
-                    <div class="text-light">
-                        <h2 class="fw-bold">Perfil guardado con éxito.</h2>
-                        <p>Los datos del perfil han sido guardados. Puede modificarlos en cualquier momento.</p>
-                    </div>
-                </div>
-
-
-            </div>
+  <main>
+    <section class="seccion-inicio-sesion">
+      <div class="contenedor">
+        <div class="formulario-inicio-sesion">
+          <h2>Iniciar Sesión</h2>
+          <form action="login.php?action=login" method="POST"
+                id="login">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="boton boton-primario">Iniciar Sesión</button>
+          </form>
+          <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
         </div>
-    </main>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer modificado -->
   <footer>
@@ -76,11 +102,6 @@
       </div>
     </div>
   </footer>
-
-
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js.js"></script>
+  
 </body>
 </html>

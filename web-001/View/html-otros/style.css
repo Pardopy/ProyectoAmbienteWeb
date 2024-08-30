@@ -50,6 +50,7 @@ header {
 
 nav {
   display: flex;
+  align-items: center;
 }
 
 nav ul {
@@ -57,11 +58,13 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 nav li {
   margin: 0;
   padding: 0 15px;
+  align-items: center;
 }
 
 nav li a {
