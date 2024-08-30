@@ -34,6 +34,21 @@
             }
         }
 
+        // Metodo para actualizar los credenciales de un usuario por id
+        public static function updateUser($data) {
+            try {
+                
+                // Llamar al metodo del modelo para actualizar
+                $response = usuarioModel::updateUser($data);
+                print_r($response);
+
+                // header('Location: ../html-kevin/credenciales-actualizadas.html');
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
         // Metodo para añadir un perfil al usuario
         public static function addProfile($data) {
             try {
