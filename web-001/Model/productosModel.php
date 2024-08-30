@@ -61,6 +61,22 @@
             }
         }
 
+        // Metodo para buscar un producto por id
+        public static function getProductById($data) {
+            try {
+                // Formatted string para la consulta
+                $formattedStr = "'" . $data['idProducto'] . "'";
+
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL GetProductoById($formattedStr);");
+
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
     }
 
 ?>
