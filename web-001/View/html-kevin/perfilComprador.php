@@ -122,7 +122,7 @@
                   <textarea id="biografia" name="biografia" rows="4" required><?=$biografia?></textarea>
                 </div>
                 <button style="font-weight: bold;" type="submit">Guardar cambios</button>
-                <a style="text-decoration: none; color: #fff;" href="../html-otros/ConfigCuenta.html"><button type="button" style="font-weight: bold;">Modificar credenciales</button></a>
+                <a style="text-decoration: none; color: #fff;" href="../html-heymmy/modificarCredenciales.php"><button type="button" style="font-weight: bold;">Modificar credenciales</button></a>
               </form>
             </div>
           </section>

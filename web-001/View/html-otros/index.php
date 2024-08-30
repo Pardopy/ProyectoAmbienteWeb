@@ -43,10 +43,10 @@
       <nav>
         <ul>
           <li><a href="../html-otros/index.php">Inicio</a></li>
-          <li><a href="../html-kevin/productos.html">Productos</a></li>
+          <li><a href="../html-kevin/productos.php">Productos</a></li>
           <li><a href="../html-otros/GestionPedidos.html">Pedidos</a></li>
           <li><a href="../html-heymmy/Foro.html">Foro</a></li>
-          <li><a href="../html-kevin/soporte.html">Soporte</a></li>
+          <li><a href="../html-kevin/soporte.php">Soporte</a></li>
 
           <?php
             // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -69,7 +69,7 @@
           <?php
             } else {
           ?>
-          <li><a href="../html-heymmy/Registro.html" class="boton boton-primario">Registrarse</a></li>
+          <li><a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse</a></li>
           <li><a href="../html-otros/login.php" class="boton boton-secundario">Iniciar sesión</a></li>
           <?php
             }

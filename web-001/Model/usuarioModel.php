@@ -42,6 +42,26 @@
 
         }
 
+        // Metodo para actualizar los credenciales de un usuario por id
+        public static function updateUser($data) {
+
+            try {
+                // Formatted string para la consulta
+                $formattedStr = "'" . $data['idUsuario'] . "', '" . $data['email'] . 
+                "', '" . $data['password'] . "'";
+
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL UpdateCredencialesUsuario($formattedStr);");
+
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+
+            }
+
+        }
+
         // Metodo para añadir un perfil al usuario
         public static function addProfile($data) {
 
