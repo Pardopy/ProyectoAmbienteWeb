@@ -33,11 +33,11 @@
                     // Si el perfil ya existe, actualizarlo
                     if ($profile) {
                         usuarioController::updateProfile($_POST);
-                        header('Location: perfil-guardado.html');
+                        header('Location: perfil-guardado.php');
 
                     } else {
                         usuarioController::addProfile($_POST);
-                        header('Location: perfil-guardado.html');
+                        header('Location: perfil-guardado.php');
                     }
 
 
