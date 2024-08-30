@@ -1,3 +1,32 @@
+<?php
+    // Imports
+    require_once('../../Controller/loginController.php');
+
+    // Se verifica si se ha enviado un action por GET
+    if (isset($_GET['action'])) {
+        
+      // Se verifica el valor del action
+      switch ($_GET['action']) {
+
+          // Si el action es login
+          case 'login':
+
+              // Se llama a la función login del controller
+              loginController::login($_POST);
+              break;
+          
+          // Si el action es logout
+          case 'logout':
+
+              // Se llama a la función logout del controller
+              loginController::logout();
+              break;
+      }
+
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +46,7 @@
       
       <nav>
         <ul>
-          <li><a href="../html-otros/Index.html">Inicio</a></li>
+          <li><a href="../html-otros/index.html">Inicio</a></li>
           <li><a href="../html-kevin/productos.html">Productos</a></li>
           <li><a href="../html-otros/GestionPedidos.html">Pedidos</a></li>
           <li><a href="../html-heymmy/Foro.html">Foro</a></li>
@@ -34,7 +63,8 @@
       <div class="contenedor">
         <div class="formulario-inicio-sesion">
           <h2>Iniciar Sesión</h2>
-          <form action="procesar_login.php" method="POST">
+          <form action="login.php?action=login" method="POST"
+                id="login">
             <label for="email">Correo Electrónico</label>
             <input type="email" id="email" name="email" required>
             <label for="password">Contraseña</label>

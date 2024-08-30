@@ -143,3 +143,14 @@ CREATE PROCEDURE GetPerfilByUsuarioID(
 BEGIN
     SELECT * FROM Perfiles WHERE usuario_id = p_usuario_id;
 END //
+
+-- Validar un usuario por correo electrónico y contraseña
+DELIMITER //
+CREATE PROCEDURE ValidateUsuario(
+    IN p_correo_electronico VARCHAR(255),
+    IN p_contraseña VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM Usuarios WHERE correo_electronico = p_correo_electronico AND contraseña = p_contraseña;
+END //
+DELIMITER ;
