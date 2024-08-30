@@ -1,9 +1,61 @@
+<?php
+    // Imports
+    require_once('../../Controller/usuarioController.php');
+
+    // Iniciar la sesión
+    session_start();
+
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION['idUsuario'])) {
+        header('Location: ../html-otros/login.html');
+    } else {
+        $idUsuario = $_SESSION['idUsuario'];
+
+        // Verificar si el usuario ya tiene un perfil
+        $profile = usuarioController::getProfileByUserId($_SESSION);
+
+        // Si ya tiene un perfil, llenar los campos con la información
+        if ($profile) {
+            $nombre = $profile[0]['nombre_completo'];
+            $telefono = $profile[0]['telefono'];
+            $campoAdicional = $profile[0]['campo_adicional'];
+            $biografia = $profile[0]['biografia'];
+        } else {
+            $nombre = '';
+            $telefono = '';
+            $campoAdicional = '';
+            $biografia = '';
+        }
+
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'addProfile':
+                    // Si el perfil ya existe, actualizarlo
+                    if ($profile) {
+                        usuarioController::updateProfile($_POST);
+                        header('Location: ../html-kevin/perfil-guardado.php');
+
+                    } else {
+                        usuarioController::addProfile($_POST);
+                        header('Location: ../html-kevin/perfil-guardado.php');
+                    }
+
+
+
+                    break;
+            }
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil del Comprador - AgroConnect</title>
+  <title>AgroConnect - Perfil</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -193,33 +245,33 @@
   <main>
     <section class="seccion-registro">
       <div class="formulario-registro">
-        <h2>Editar Perfil del Agricultor</h2>
-        <form id="profileForm">
+        <h2>Perfil del Agricultor</h2>
+        <form action="?action=addProfile" method="POST" enctype="multipart/form-data"
+              id="profileForm">
+          <input type="text" id="idUsuario" name="idUsuario" value="<?=$idUsuario?>" required hidden>
+
           <div class="form-group">
             <label for="fotoPerfil">Fotografía del perfil:</label>
             <input type="file" id="fotoPerfil" name="fotoPerfil">
           </div>
           <div class="form-group">
             <label for="nombre">Nombre completo:</label>
-            <input type="text" id="nombre" name="nombre" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="text" id="nombre" name="nombre" value="<?=$nombre?>" required>
           </div>
           <div class="form-group">
             <label for="telefono">Número de teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required>
+            <input type="tel" id="telefono" name="telefono" value="<?=$telefono?>" required>
           </div>
           <div class="form-group">
-            <label for="productos">Tipo de productos:</label>
-            <input type="text" id="productos" name="productos" required>
+            <label for="campoAdicional">Tipo de productos:</label>
+            <input type="text" id="campoAdicional" name="campoAdicional" value="<?=$campoAdicional?>" required>
           </div>
           <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+            <label for="biografia">Biografía:</label>
+            <textarea id="biografia" name="biografia" rows="4" required><?=$biografia?></textarea>
           </div>
           <button type="submit">Guardar cambios</button>
+          <a style="text-decoration: none; color: #fff;" href="../html-otros/ConfigCuenta.html"><button type="button">Modificar credenciales</button></a>
         </form>
       </div>
     </section>

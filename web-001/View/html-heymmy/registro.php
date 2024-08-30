@@ -26,7 +26,6 @@
               header('Location: perfilAgricultor.php');
             }
 
-
             break;
       }
     }

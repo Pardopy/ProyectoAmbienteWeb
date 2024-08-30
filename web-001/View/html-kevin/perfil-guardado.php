@@ -1,9 +1,28 @@
+<?php
+    // Iniciar la sesión
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="3;url=perfilComprador.php">
+
+  <?php
+    // Si el usuario es agricultor, redirigirlo a la página de perfil de agricultor
+    if ($_SESSION['tipoUsuario'] == 'Agricultor') {
+  ?>
+    <meta http-equiv="refresh" content="3;url=../html-heymmy/perfilAgricultor.php">
+  <?php
+    } else {
+  ?> 
+    <meta http-equiv="refresh" content="3;url=perfilComprador.php">
+  <?php
+    }
+  ?>
+  
   <title>AgroConnect - Pefil</title>
 
   <!-- Fonts -->

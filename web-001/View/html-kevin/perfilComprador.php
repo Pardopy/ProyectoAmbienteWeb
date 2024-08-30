@@ -72,7 +72,7 @@
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
-      <a href="../html-otros/Index.html" class="logotipo">AgroConnect</a>
+      <a href="../html-otros/index.html" class="logotipo">AgroConnect</a>
       
       <nav>
         <ul>
