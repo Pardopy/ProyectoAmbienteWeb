@@ -1,3 +1,38 @@
+<?php
+    // Imports
+    require_once('../../Controller/usuarioController.php');
+
+    if (isset($_GET['action'])) {
+      
+      switch ($_GET['action']) {
+        case 'register':
+            usuarioController::addUser($_POST);
+            print_r($_POST);
+
+            session_start();
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['tipoUsuario'] = $_POST['tipoUsuario'];
+
+            $idUsuario = usuarioController::getUserByEmail($_POST);
+            $_SESSION['idUsuario'] = $idUsuario[0]['usuario_id'];
+
+            print_r($_SESSION);
+
+            // Verificar si el perfil es comprador o agricultor para reedirigirlo
+            // a la página correspondiente
+            if ($_POST['tipoUsuario'] == 'Comprador') {
+              header('Location: ../html-kevin/perfilComprador.php');
+            } else {
+              header('Location: perfilAgricultor.php');
+            }
+
+
+            break;
+      }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -200,11 +235,8 @@
     <section class="seccion-registro">
       <div class="formulario-registro">
         <h2>Registrarse en AgroConnect</h2>
-        <form id="registerForm">
-          <div class="form-group">
-            <label for="nombre">Nombre completo:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" required>
-          </div>
+        <form action="registro.php?action=register" method="POST"
+              id="registerForm">
           <div class="form-group">
             <label for="email">Correo electrónico:</label>
             <input type="email" id="email" name="email" class="form-control" required>
@@ -216,9 +248,8 @@
           <div class="form-group">
             <label for="tipoUsuario">Soy:</label>
             <select id="tipoUsuario" name="tipoUsuario" class="form-control" required>
-              <option value="">Seleccione una opción</option>
-              <option value="agricultor">Agricultor</option>
-              <option value="comprador">Comprador</option>
+              <option value="Agricultor">Agricultor</option>
+              <option value="Comprador">Comprador</option>
             </select>
           </div>
           <button type="submit" class="boton boton-primario">Registrarse</button>
@@ -254,6 +285,6 @@
     </div>
   </footer>
 
-  <script src="registro.js"></script>
+  <!-- <script src="registro.js"></script> -->
 </body>
 </html>
