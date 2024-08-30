@@ -1,3 +1,28 @@
+<?php
+    // Imports
+    require_once('../../Controller/usuarioController.php');
+
+    // Iniciar la sesión
+    session_start();
+
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION['idUsuario'])) {
+        header('Location: ../html-otros/login.html');
+    } else {
+        $idUsuario = $_SESSION['idUsuario'];
+
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'addProfile':
+                    usuarioController::addProfile($_POST);
+                    print_r($_POST);
+                    break;
+            }
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,7 +70,11 @@
           <section class="seccion-registro">
             <div class="formulario-registro">
               <h2 style="font-size: 1.5rem; font-weight: 650;">Perfil de Comprador </h2>
-              <form id="profileForm">
+              <form action="?action=addProfile" method="POST" enctype="multipart/form-data"
+                    id="profileForm">
+
+                <input type="text" id="idUsuario" name="idUsuario" value="<?=$idUsuario?>" required hidden>
+
                 <div class="form-group">
                   <label for="fotoPerfil">Fotografía del perfil:</label>
                   <input type="file" id="fotoPerfil" name="fotoPerfil" style="color: #fff;">
@@ -55,20 +84,16 @@
                   <input type="text" id="nombre" name="nombre" required>
                 </div>
                 <div class="form-group">
-                  <label for="email">Correo electrónico:</label>
-                  <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
                   <label for="telefono">Número de teléfono:</label>
                   <input type="tel" id="telefono" name="telefono" required>
                 </div>
                 <div class="form-group">
-                  <label for="productos">Otro campo:</label>
-                  <input type="text" id="productos" name="productos" required>
+                  <label for="campoAdicional">Dirección:</label>
+                  <input type="text" id="campoAdicional" name="campoAdicional" required>
                 </div>
                 <div class="form-group">
-                  <label for="descripcion">Dirección:</label>
-                  <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+                  <label for="biografia">Biografía:</label>
+                  <textarea id="biografia" name="biografia" rows="4" required></textarea>
                 </div>
                 <button style="font-weight: bold;" type="submit">Guardar cambios</button>
                 <a style="text-decoration: none; color: #fff;" href="../html-otros/ConfigCuenta.html"><button type="button" style="font-weight: bold;">Modificar credenciales</button></a>

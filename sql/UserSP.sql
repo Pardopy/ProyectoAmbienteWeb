@@ -72,3 +72,13 @@ BEGIN
     VALUES (p_correo_electronico, p_contraseña, p_tipo_usuario);
 END //
 DELIMITER ;
+
+-- Obtener un usuario por correo electrónico
+DELIMITER //
+CREATE PROCEDURE GetUsuarioByCorreo(
+    IN p_correo_electronico VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM Usuarios WHERE correo_electronico = p_correo_electronico;
+END //
+DELIMITER ;

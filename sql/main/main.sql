@@ -62,6 +62,7 @@ END //
 DELIMITER ;
 
 -- SPs de Usuarios
+-- Insertar un nuevo usuario
 DELIMITER //
 CREATE PROCEDURE InsertUsuario(
     IN p_correo_electronico VARCHAR(255),
@@ -73,3 +74,34 @@ BEGIN
     VALUES (p_correo_electronico, p_contraseña, p_tipo_usuario);
 END //
 DELIMITER ;
+
+-- Obtener un usuario por correo electrónico
+DELIMITER //
+CREATE PROCEDURE GetUsuarioByCorreo(
+    IN p_correo_electronico VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM Usuarios WHERE correo_electronico = p_correo_electronico;
+END //
+DELIMITER ;
+
+-- SPs de Perfiles
+-- Insertar un nuevo perfil
+DELIMITER //
+CREATE PROCEDURE InsertPerfil(
+    IN p_usuario_id INT,
+    IN p_nombre_completo VARCHAR(255),
+    IN p_telefono VARCHAR(12),
+    IN p_campo_adicional VARCHAR(255),
+    IN p_biografia TEXT,
+    IN p_foto_perfil VARCHAR(1024)
+)
+BEGIN
+    IF p_foto_perfil IS NULL THEN
+        INSERT INTO Perfiles (usuario_id, nombre_completo, telefono, campo_adicional, biografia)
+        VALUES (p_usuario_id, p_nombre_completo, p_telefono, p_campo_adicional, p_biografia);
+    ELSE
+        INSERT INTO Perfiles (usuario_id, nombre_completo, telefono, campo_adicional, biografia, foto_perfil)
+        VALUES (p_usuario_id, p_nombre_completo, p_telefono, p_campo_adicional, p_biografia, p_foto_perfil);
+    END IF;
+END //

@@ -7,7 +7,25 @@
       switch ($_GET['action']) {
         case 'register':
             usuarioController::addUser($_POST);
-            print_r($_POST);  
+            print_r($_POST);
+
+            session_start();
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['tipoUsuario'] = $_POST['tipoUsuario'];
+
+            $idUsuario = usuarioController::getUserByEmail($_POST);
+            $_SESSION['idUsuario'] = $idUsuario[0]['usuario_id'];
+
+            print_r($_SESSION);
+
+            // Verificar si el perfil es comprador o agricultor para reedirigirlo
+            // a la página correspondiente
+            if ($_POST['tipoUsuario'] == 'Comprador') {
+              header('Location: ../html-kevin/perfilComprador.php');
+            } else {
+              header('Location: perfilAgricultor.php');
+            }
+
 
             break;
       }
