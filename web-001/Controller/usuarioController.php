@@ -48,6 +48,36 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
+        // Metodo para obtener un perfil por id de usuario
+        public static function getProfileByUserId($data) {
+            try {
+                
+                // Llamar al metodo del modelo para obtener
+                $response = usuarioModel::getProfileByUserId($data);
+                print_r($response);
+
+                return $response;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        // Metodo para actualizar un perfil por id de usuario
+        public static function updateProfile($data) {
+            try {
+                
+                // Llamar al metodo del modelo para actualizar
+                $response = usuarioModel::updateProfile($data);
+                print_r($response);
+
+                // header('Location: ../html-kevin/perfil-actualizado.html');
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
     }
 
 ?>

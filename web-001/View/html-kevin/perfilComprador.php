@@ -11,11 +11,37 @@
     } else {
         $idUsuario = $_SESSION['idUsuario'];
 
+        // Verificar si el usuario ya tiene un perfil
+        $profile = usuarioController::getProfileByUserId($_SESSION);
+
+        // Si ya tiene un perfil, llenar los campos con la información
+        if ($profile) {
+            $nombre = $profile[0]['nombre_completo'];
+            $telefono = $profile[0]['telefono'];
+            $campoAdicional = $profile[0]['campo_adicional'];
+            $biografia = $profile[0]['biografia'];
+        } else {
+            $nombre = '';
+            $telefono = '';
+            $campoAdicional = '';
+            $biografia = '';
+        }
+
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'addProfile':
-                    usuarioController::addProfile($_POST);
-                    print_r($_POST);
+                    // Si el perfil ya existe, actualizarlo
+                    if ($profile) {
+                        usuarioController::updateProfile($_POST);
+                        header('Location: perfil-guardado.html');
+
+                    } else {
+                        usuarioController::addProfile($_POST);
+                        header('Location: perfil-guardado.html');
+                    }
+
+
+
                     break;
             }
         }
@@ -81,19 +107,19 @@
                 </div>
                 <div class="form-group">
                   <label for="nombre">Nombre completo:</label>
-                  <input type="text" id="nombre" name="nombre" required>
+                  <input type="text" id="nombre" name="nombre" value="<?=$nombre?>" required>
                 </div>
                 <div class="form-group">
                   <label for="telefono">Número de teléfono:</label>
-                  <input type="tel" id="telefono" name="telefono" required>
+                  <input type="tel" id="telefono" name="telefono" value="<?=$telefono?>" required>
                 </div>
                 <div class="form-group">
                   <label for="campoAdicional">Dirección:</label>
-                  <input type="text" id="campoAdicional" name="campoAdicional" required>
+                  <input type="text" id="campoAdicional" name="campoAdicional" value="<?=$campoAdicional?>" required>
                 </div>
                 <div class="form-group">
                   <label for="biografia">Biografía:</label>
-                  <textarea id="biografia" name="biografia" rows="4" required></textarea>
+                  <textarea id="biografia" name="biografia" rows="4" required><?=$biografia?></textarea>
                 </div>
                 <button style="font-weight: bold;" type="submit">Guardar cambios</button>
                 <a style="text-decoration: none; color: #fff;" href="../html-otros/ConfigCuenta.html"><button type="button" style="font-weight: bold;">Modificar credenciales</button></a>

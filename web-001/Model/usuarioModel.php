@@ -71,6 +71,54 @@
 
         }
 
+        // Metodo para obtener un perfil por idUsuario
+        public static function getProfileByUserId($data) {
+
+            try {
+                // Formatted string para la consulta
+                $formattedStr = "'" . $data['idUsuario'] . "'";
+
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL GetPerfilByUsuarioID($formattedStr);");
+
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+
+            }
+
+        }
+
+        // Metodo para actualizar un perfil por idUsuario
+        public static function updateProfile($data) {
+
+            try {
+                // Verificar si el perfil incluye la foto de perfil
+                if (isset($data['fotoPerfil'])) {
+                    // Formatted string para la consulta
+                    $formattedStr = "'" . $data['idUsuario'] . "', '" . $data['nombre'] . 
+                    "', '" . $data['telefono'] . "', '" .$data['campoAdicional'] . 
+                    "', '" . $data['biografia'] . "', '" . $data['fotoPerfil'] . "'";
+                } else {
+                    // Formatted string para la consulta sin foto de perfil
+                    $formattedStr = "'" . $data['idUsuario'] . "', '" . $data['nombre'] . 
+                    "', '" . $data['telefono'] . "', '" .$data['campoAdicional'] . 
+                    "', '" . $data['biografia'] . "', NULL";
+                }
+
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL UpdatePerfil($formattedStr);");
+
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+
+            }
+
+        }
+
     }
 
 ?>
