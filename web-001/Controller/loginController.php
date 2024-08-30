@@ -45,7 +45,7 @@
                     session_destroy();
 
                     // Se redirige al usuario a la pagina de inicio
-                    header('Location: ../html-otros/index.html');
+                    header('Location: ../html-otros/index.php');
 
                 } catch (Exception $e) {
                     echo "Error: " . $e->getMessage();
