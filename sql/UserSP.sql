@@ -58,3 +58,17 @@ BEGIN
     DELETE FROM Usuarios WHERE usuario_id = p_usuario_id;
 END //
 DELIMITER ;
+
+-- SPs para la nueva tabla de Usuarios
+-- Insertar un nuevo usuario
+DELIMITER //
+CREATE PROCEDURE InsertUsuario(
+    IN p_correo_electronico VARCHAR(255),
+    IN p_contraseña VARCHAR(255),
+    IN p_tipo_usuario ENUM('Comprador', 'Agricultor')
+)
+BEGIN
+    INSERT INTO Usuarios (correo_electronico, contraseña, tipo_usuario)
+    VALUES (p_correo_electronico, p_contraseña, p_tipo_usuario);
+END //
+DELIMITER ;

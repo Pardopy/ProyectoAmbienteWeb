@@ -3,7 +3,6 @@ USE agroconnect;
 
 CREATE TABLE Usuarios (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_completo VARCHAR(255) NOT NULL,
     correo_electronico VARCHAR(255) NOT NULL UNIQUE,
     contraseña VARCHAR(255) NOT NULL,
     tipo_usuario ENUM('Comprador', 'Agricultor') NOT NULL,
@@ -13,8 +12,11 @@ CREATE TABLE Usuarios (
 CREATE TABLE Perfiles (
     perfil_id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
-    foto_perfil VARCHAR(255),
+    nombre_completo VARCHAR(255) NOT NULL,
+    telefono VARCHAR(12),
+    campo_adicional VARCHAR(255),
     biografia TEXT,
+    foto_perfil VARCHAR(1024),
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
 );
 
