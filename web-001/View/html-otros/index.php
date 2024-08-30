@@ -69,8 +69,8 @@
           <?php
             } else {
           ?>
-          <li><a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse</a></li>
-          <li><a href="../html-otros/login.php" class="boton boton-secundario">Iniciar sesión</a></li>
+            <li><a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse</a></li>
+            <li><a href="../html-otros/login.php" class="boton boton-secundario">Iniciar sesión</a></li>
           <?php
             }
           ?>
@@ -87,7 +87,21 @@
           <div class="texto-heroe">
             <h1>Conectamos agricultores con compradores internacionales</h1>
             <p>AgroConnect es una plataforma web innovadora que facilita la conexión entre agricultores locales en Costa Rica y compradores internacionales interesados en productos frescos y sostenibles.</p>
-            <a href="registro.html" class="boton boton-primario">Registrarse ahora</a>
+            
+
+            <?php
+              // Si el usuario está logueado, mostrar el botón de ver productos
+              if (isset($_SESSION['email'])) {
+            ?>
+              <a href="../html-kevin/productos.php" class="boton boton-primario">Ver Productos</a>
+            <?php
+              } else {
+            ?>
+              <a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse ahora</a>
+            <?php
+              }
+            ?>  
+
           </div>
         </div>
       </div>
@@ -116,17 +130,25 @@
       </div>
     </section>
 
-    <section class="llamada-a-la-accion">
-      <div class="contenedor">
-        <h2>¿Estás listo para comenzar?</h2>
-        <p>Únete a AgroConnect hoy mismo y comienza a vender tus productos frescos y sostenibles a compradores internacionales.</p>
-        <a href="registro.html" class="boton boton-primario">Registrarse ahora</a>
-      </div>
-    </section>
-  </main>
+    <?php
+      // Si el usuario no está logueado, mostrar el llamado a la acción
+      if (!isset($_SESSION['email'])) {
+    ?>
+      <section class="llamada-a-la-accion">
+        <div class="contenedor">
+          <h2>¿Estás listo para comenzar?</h2>
+          <p>Únete a AgroConnect hoy mismo y comienza a vender tus productos frescos y sostenibles a compradores internacionales.</p>
+          <a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse ahora</a>
+        </div>
+      </section>
+    <?php
+      }
+    ?>
+     
+</main>
 
   <!-- Footer modificado -->
-  <footer>
+  <footer style="position: relative;">
     <div class="contenedor">
       <div class="columna-pie-de-index">
         <p>&copy; 2024 AgroConnect</p>
@@ -141,10 +163,22 @@
         </nav>
       </div>
       <div class="columna-pie-de-index">
-        <nav>
+        <nav style="margin-left: 20vh;">
           <ul>
-            <li><a class="boton boton-primario" href="../html-heymmy/Registro.html">Registrarse</a></li>
-            <li><a class="boton boton-secundario" href="../html-otros/login.html">Iniciar sesión</a></li>
+            <?php
+              // Si el usuario está logueado, mostrar el botón de cerrar sesión
+              if (isset($_SESSION['email'])) {
+            ?>
+              <li><a href="../html-otros/index.php?action=logout" class="boton boton-secundario">Cerrar sesión</a></li>
+            <?php
+              } else {
+            ?>
+              <li><a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse</a></li>
+              <li><a href="../html-otros/login.php" class="boton boton-secundario">Iniciar sesión</a></li>
+            <?php
+              }
+            ?>  
+
           </ul>
         </nav>
       </div>
