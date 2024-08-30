@@ -154,3 +154,27 @@ BEGIN
     SELECT * FROM Usuarios WHERE correo_electronico = p_correo_electronico AND contraseña = p_contraseña;
 END //
 DELIMITER ;
+
+-- Actualizar credenciales de un usuario
+DELIMITER //
+CREATE PROCEDURE UpdateCredencialesUsuario(
+    IN p_usuario_id INT,
+    IN p_correo_electronico VARCHAR(255),
+    IN p_contraseña VARCHAR(255)
+)
+BEGIN
+    UPDATE Usuarios
+    SET correo_electronico = p_correo_electronico,
+        contraseña = p_contraseña
+    WHERE usuario_id = p_usuario_id;
+END //
+
+-- Obtener un producto por ID
+DELIMITER //
+CREATE PROCEDURE GetProductoByID(
+    IN p_producto_id INT
+)
+BEGIN
+    SELECT * FROM Productos WHERE producto_id = p_producto_id;
+END //
+DELIMITER ;

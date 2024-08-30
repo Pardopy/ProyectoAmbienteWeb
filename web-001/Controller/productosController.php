@@ -67,6 +67,23 @@
 
         }
 
+        // Metodo para obtener un producto por id
+        public static function getProductById($data) {
+
+            try {
+
+                // Se llama al metodo del modelo para obtener un producto por id
+                $result = productosModel::getProductById($data);
+                print_r($result);
+                // header('Location: ../html-kevin/productos.php');
+                return $result;
+
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+        }
+
     }
 
 ?>
