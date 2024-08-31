@@ -1,3 +1,76 @@
+<?php
+    // Imports
+    require_once('../../Controller/productosController.php');
+    require_once('../../Controller/pedidoController.php');
+
+    session_start();
+    
+    // Verificar si el carrito existe
+    if (!isset($_SESSION['cart'])) {
+        header('Location: ../html-kevin/productos.php');
+    } else {
+        $cart = $_SESSION['cart'];
+        $total = 0;
+    }
+
+    // Se suman los totales de los productos en el carrito
+
+
+    // Verificar si se solicita eliminar un producto del carrito
+    if (isset($_GET['action'])) {
+
+      switch ($_GET['action']) {
+        case 'removeItem':
+
+          // Se busca el item en el carrito y se elimina
+          foreach ($_SESSION['cart'] as $key => $value) {
+            if ($value['idProducto'] == $_POST['idProducto']) {
+              unset($_SESSION['cart'][$key]);
+              break;
+            }
+          }
+
+          header('Location: carrito.php');
+
+          break;
+
+        case 'checkout':
+          // Se verifica si el usuario esta logueado
+          if (!isset($_SESSION['idUsuario'])) {
+            header('Location: ../html-otros/login.php');
+          } else {
+            // Se crea el pedido
+            $pedido = pedidoController::addOrder($_SESSION);
+            $pedido = $pedido[0];
+            print_r($pedido);
+
+            // Se insertan los detalles del pedido
+            foreach ($_SESSION['cart'] as $item) {
+
+              $producto = productosController::getProductById($item);
+              $producto = $producto[0];
+              
+              // Se crea el array con los datos del detalle
+              $data = array(
+                'idPedido' => $pedido['pedido_id'],
+                'idProducto' => $item['idProducto'],
+                'cantidad' => $item['cantidad'],
+                'precio' => $producto['precio']
+              );
+
+              // Se inserta el detalle del pedido
+              pedidoController::addOrderDetails($data);
+
+            }
+
+          }
+      }
+    }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -64,7 +137,7 @@
                   <div class="row">
       
                     <div class="col-lg-7">
-                      <h5 class="mb-3"><a href="#!" class="text-body">
+                      <h5 class="mb-3"><a href="javascript:history.go(-1)" class="text-body">
                         <i class="fa-solid fa-arrow-left"></i>
                         Volver</a></h5>
                       <hr>
@@ -72,64 +145,64 @@
                       <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
                           <p class="mb-1">Lista de productos</p>
-                          <p class="mb-0">Hay X artículos en el carrito.</p>
                         </div>
                       </div>
-      
-                      <div class="card mb-3">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row align-items-center">
-                              <div>
-                                <img
-                                  src="https://unavatar.io/product1"
-                                  class="img-fluid rounded-3" alt="Producto listado" style="width: 65px;">
+
+                      <?php
+                        if (count($cart) == 0) {
+                      ?>
+                        <div class="alert alert-warning" role="alert">
+                          No hay productos en el carrito.
+                        </div>
+                      <?php
+                        } else {
+                      ?>
+
+                        <?php
+                          foreach ($cart as $item) {
+                              $producto = productosController::getProductById($item);
+                              $producto = $producto[0];
+
+                              $total += $producto['precio'] * $item['cantidad'];
+                              $itemTotal = $producto['precio'] * $item['cantidad'];
+
+                        ?>
+                          <div class="card mb-3">
+                            <div class="card-body">
+                              <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                  <div>
+                                    <img
+                                      src="https://unavatar.io/product1"
+                                      class="img-fluid rounded-3" alt="Producto listado" style="width: 65px;">
+                                  </div>
+                                  <div class="ms-3">
+                                    <h5><?=$producto['nombre_producto']?></h5>
+                                    <p class="small mb-0"><?=$producto['descripcion']?></p>
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                  <div style="width: 50px;">
+                                    <h5 class="fw-normal mb-0"><?=$item['cantidad']?></h5>
+                                  </div>
+                                  <div style="width: 80px;">
+                                    <h5 class="mb-0">$<?=$itemTotal?></h5>
+                                  </div>
+                                    <form action="?action=removeItem" method="POST"
+                                          id="removeFromCart">
+                                          <input type="text" name="idProducto" id="idProducto" value="<?=$producto['producto_id']?>" required hidden>
+                                      <button type="submit" class="text-danger" style="background-color: transparent;"><i class="fas fa-trash-alt"></i></button>
+                                      <!-- <a href="#!" class="text-danger"><i class="fas fa-trash-alt"></i></a> -->
+                                    </form>
+                                </div>
                               </div>
-                              <div class="ms-3">
-                                <h5>Producto 1</h5>
-                                <p class="small mb-0">Descripción de producto</p>
-                              </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center">
-                              <div style="width: 50px;">
-                                <h5 class="fw-normal mb-0">2</h5>
-                              </div>
-                              <div style="width: 80px;">
-                                <h5 class="mb-0">₡40.000</h5>
-                              </div>
-                              <a href="#!" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                             </div>
                           </div>
-                        </div>
-                      </div>
-      
-                      <div class="card mb-3">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row align-items-center">
-                              <div>
-                                <img
-                                src="https://unavatar.io/avatar200"
-                                  class="img-fluid rounded-3" alt="Producto listado" style="width: 65px;">
-                              </div>
-                              <div class="ms-3">
-                                <h5>Producto 2</h5>
-                                <p class="small mb-0">Descripción de producto</p>
-                              </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center">
-                              <div style="width: 50px;">
-                                <h5 class="fw-normal mb-0">2</h5>
-                              </div>
-                              <div style="width: 80px;">
-                                <h5 class="mb-0">₡50.000</h5>
-                              </div>
-                              <a href="#!" class="text-danger"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-      
+                        <?php
+                          }
+                        }
+                        ?>
+                         
       
                     </div>
                     <!-- Detalles de Pago -->
@@ -188,25 +261,28 @@
       
                           <div class="d-flex justify-content-between">
                             <p class="mb-2">Subtotal</p>
-                            <p class="mb-2">₡90.000</p>
+                            <p class="mb-2">$<?=$total?></p>
                           </div>
       
                           <div class="d-flex justify-content-between">
                             <p class="mb-2">Envío</p>
-                            <p class="mb-2">₡10.000</p>
+                            <p class="mb-2">$<?=$total * 0.15?></p>
                           </div>
       
                           <div class="d-flex justify-content-between mb-4">
                             <p class="mb-2">Total(Incl. IVA)</p>
-                            <p class="mb-2">₡104.220</p>
+                            <p class="mb-2">$<?=$total * 1.15?></p>
                           </div>
-      
-                          <button  type="button" class="btn btn-outline-light text-light fw-bold btn-lg">
-                            <div class="d-flex justify-content-between">
-                              <span class="me-2">₡104.220</span>
-                              <span>Pagar <i class="fas fa-long-arrow-alt-right ms-1"></i></span>
-                            </div>
-                          </button>
+
+                          <form action="?action=checkout" method="POST"
+                                  id="checkoutForm">
+                            <button  type="submit" class="btn btn-outline-light text-light fw-bold btn-lg">
+                              <div class="d-flex justify-content-between">
+                                <span class="me-2">$<?=$total * 1.15?></span>
+                                <span>Pagar <i class="fas fa-long-arrow-alt-right ms-1"></i></span>  
+                              </div>
+                            </button>
+                          </form>
       
                         </div>
                       </div>
