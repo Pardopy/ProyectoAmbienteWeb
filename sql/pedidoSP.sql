@@ -147,3 +147,12 @@ CREATE PROCEDURE GetPedidosByUsuarioID(
 BEGIN
     SELECT * FROM Pedidos WHERE usuario_id = p_usuario_id;
 END //
+
+-- Obtener los detalles de un pedido por ID de pedido
+DELIMITER //
+CREATE PROCEDURE GetDetallesPedidoByPedidoID(
+    IN p_pedido_id INT
+)
+BEGIN
+    SELECT * FROM Detalles_Pedido WHERE pedido_id = p_pedido_id;
+END //

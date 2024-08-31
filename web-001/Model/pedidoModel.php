@@ -58,6 +58,23 @@
             }
         }
 
+        // Metodo para obtener los detalles de un pedido
+        public static function getOrderDetails($data) {
+            try {
+                // Formatted string para la consulta
+                $formattedStr = "'" . $data['idPedido'] . "'";
+    
+                // Ejecutar la consulta y guardar el resultado
+                $result = connModel::fetchData("CALL GetDetallesPedidoByPedidoID($formattedStr);");
+    
+                return $result;
+    
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+    
+            }
+        }
+
     }
 
 ?>

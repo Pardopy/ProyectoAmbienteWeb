@@ -49,6 +49,21 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
+        // Metodo para obtener los pedidos de un usuario
+        public static function getOrderDetails($data) {
+            try {
+                
+                // Llamar al metodo del modelo para obtener
+                $response = pedidoModel::getOrderDetails($data);
+                // print_r($response);
+
+                return $response;
+                
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
     }
 
 ?>
