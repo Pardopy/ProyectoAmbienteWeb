@@ -1,6 +1,7 @@
 <?php
     // Imports
     require_once('../../Controller/soporteController.php');
+    require_once('../../Controller/loginController.php');
 
     // Iniciar la sesión
     session_start();
@@ -12,6 +13,10 @@
             soporteController::addSupportTicket($_POST);
             print_r($_POST);  
 
+            break;
+
+        case 'logout':
+            loginController::logout();
             break;
       }
     }

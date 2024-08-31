@@ -2,6 +2,7 @@
     // Imports
     require_once('../../Controller/productosController.php');
     require_once('../../Controller/pedidoController.php');
+    require_once('../../Controller/loginController.php');
 
     session_start();
     
@@ -68,6 +69,11 @@
             }
 
           }
+          break;
+
+        case 'logout':
+          loginController::logout();
+          break;
       }
     }
 

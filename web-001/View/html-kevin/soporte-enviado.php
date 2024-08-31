@@ -1,3 +1,18 @@
+<?php
+  require_once('../../Controller/loginController.php');
+
+  session_start();
+
+  if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'logout':
+            loginController::logout();
+            break;
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -2,6 +2,7 @@
 <?php
     // Imports
     require_once('../../Controller/productosController.php');
+    require_once('../../Controller/loginController.php');
 
     // Se inicializa la sesión
     session_start();
@@ -19,6 +20,14 @@
         header('Location: ../html-kevin/productos.php');
     }
     
+    if (isset($_GET['action'])) {
+      switch ($_GET['action']) {
+          case 'logout':
+              loginController::logout();
+              break;
+
+      }
+  }
 
 
 ?>
