@@ -190,3 +190,34 @@ BEGIN
     VALUES (p_usuario_id, p_estado_pedido);
     SELECT * FROM Pedidos WHERE pedido_id = LAST_INSERT_ID();
 END //
+
+-- Insertar un nuevo detalle de pedido
+DELIMITER //
+CREATE PROCEDURE InsertDetallePedido(
+    IN p_pedido_id INT,
+    IN p_producto_id INT,
+    IN p_cantidad INT,
+    IN p_precio_unitario DECIMAL(10, 2)
+)
+BEGIN
+    INSERT INTO Detalles_Pedido (pedido_id, producto_id, cantidad, precio_unitario)
+    VALUES (p_pedido_id, p_producto_id, p_cantidad, p_precio_unitario);
+END //
+
+-- Obtener los pedidos por ID de usuario
+DELIMITER //
+CREATE PROCEDURE GetPedidosByUsuarioID(
+    IN p_usuario_id INT
+)
+BEGIN
+    SELECT * FROM Pedidos WHERE usuario_id = p_usuario_id;
+END //
+
+-- Obtener los detalles de un pedido por ID de pedido
+DELIMITER //
+CREATE PROCEDURE GetDetallesPedidoByPedidoID(
+    IN p_pedido_id INT
+)
+BEGIN
+    SELECT * FROM Detalles_Pedido WHERE pedido_id = p_pedido_id;
+END //

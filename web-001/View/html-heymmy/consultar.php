@@ -1,3 +1,23 @@
+<?php
+    // Imports
+    require_once('../../Controller/pedidoController.php');
+    require_once('../../Controller/productosController.php');
+
+    // Iniciar la sesión
+    session_start();
+
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION['idUsuario'])) {
+        header('Location: ../html-otros/login.html');
+    } else {
+        $idUsuario = $_SESSION['idUsuario'];
+
+        $pedidos = pedidoController::getOrdersByUserId($_SESSION);
+
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +26,8 @@
   <title>Consultar Registro de Usuarios - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- BootStrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <style>
     /* Estilos generales */
     body {
@@ -187,13 +209,81 @@
         <table>
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Correo electrónico</th>
-              <th>Tipo de usuario</th>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
-          <tbody id="usuariosTableBody">
-            <!-- Los registros se insertarán aquí -->
+          <tbody>
+            <?php
+                foreach ($pedidos as $pedido) {
+                  $data = array('idPedido' => $pedido['pedido_id']);
+
+                  $detallesPedido = pedidoController::getOrderDetails($data);
+                  print_r($detallesPedido);
+            ?>
+              <tr>
+                <td><?=$pedido['pedido_id']?></td>
+                <td><?=$pedido['fecha_pedido']?></td>
+                <td><?=$pedido['estado_pedido']?></td>
+                <td>
+                  <a href="detalleUsuario.html" ></a>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="boton boton-primario" style="border: 0px;" data-bs-toggle="modal" data-bs-target="<?="#exampleModal" . $pedido['pedido_id']?>">
+                    Ver detalles
+                  </button>
+
+                  <!-- Modal -->
+                    <div class="modal fade" id="<?="exampleModal" . $pedido['pedido_id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Producto</th>
+                                  <th>Cantidad</th>
+                                  <th>Precio</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php
+                                  foreach ($detallesPedido as $detalle) {
+                                    $data = array('idProducto' => $detalle['producto_id']);
+                                    $producto = productosController::getProductById($data);
+                                    $producto = $producto[0];
+                                ?>
+                                  <tr>
+                                    <td><?=$producto['nombre_producto']?></td>
+                                    <td><?=$detalle['cantidad']?></td>
+                                    <td><?=$producto['precio']?></td>
+                                  </tr>
+                                <?php
+                                  }
+                                ?>
+                              </tbody>
+                            </table>
+                            
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="boton boton-primario" style="border: 0px;" data-bs-dismiss="modal">Cerrar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </td>
+                
+              </tr>
+            <?php
+                }
+            ?>
+
           </tbody>
         </table>
       </div>
@@ -226,6 +316,8 @@
     </div>
   </footer>
 
-  <script src="consultar.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- <script src="consultar.js"></script> -->
 </body>
 </html>
