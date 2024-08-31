@@ -1,6 +1,7 @@
 <?php
     // Imports
     require_once('../../Controller/usuarioController.php');
+    require_once('../../Controller/loginController.php');
 
     // Iniciar la sesión
     session_start();
@@ -43,6 +44,11 @@
 
 
                     break;
+
+              case 'logout':
+                  loginController::logout();
+                  break;
+
             }
         }
     }

@@ -2,6 +2,7 @@
     // Imports
     require_once('../../Controller/pedidoController.php');
     require_once('../../Controller/productosController.php');
+    require_once('../../Controller/loginController.php');
 
     // Iniciar la sesión
     session_start();
@@ -14,6 +15,15 @@
 
         $pedidos = pedidoController::getOrdersByUserId($_SESSION);
 
+    }
+
+    if (isset($_GET['action'])) {
+      switch ($_GET['action']) {
+          case 'logout':
+              loginController::logout();
+              break;
+
+      }
     }
 
 ?>

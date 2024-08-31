@@ -1,6 +1,16 @@
 <?php
+  require_once('../../Controller/loginController.php');
+
     // Iniciar la sesión
     session_start();
+
+    if (isset($_GET['action'])) {
+      switch ($_GET['action']) {
+          case 'logout':
+              loginController::logout();
+              break;
+      }
+    }
 
 ?>
 

@@ -1,9 +1,19 @@
 <?php
     // Imports
     require_once('../../Controller/loginController.php');
+    require_once('../../Controller/loginController.php');
 
     // Se inicializa la sesion
     session_start();
+
+    if (isset($_GET['action'])) {
+      switch ($_GET['action']) {
+          case 'logout':
+              loginController::logout();
+              break;
+
+      }
+    }
 
 ?>
 

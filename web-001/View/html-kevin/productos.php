@@ -2,6 +2,7 @@
     // Imports
     require_once('../../Controller/productosController.php');
     require_once('../../Controller/categoriaController.php');
+    require_once('../../Controller/loginController.php');
     
     // Iniciar la variable de categorias
     $listadoCategorias = categoriaController::getAllCategories();
@@ -98,7 +99,11 @@
 
 
                 break;
-        }
+
+            case 'logout':
+              loginController::logout();
+              break;
+    }
             
      } else {
         $listadoProductos = productosController::getAllProducts();
