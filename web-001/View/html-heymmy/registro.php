@@ -308,7 +308,7 @@
             </select>
           </div>
           <button type="submit" class="boton boton-primario">Registrarse</button>
-          <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+          <p>¿Ya tienes una cuenta? <a href="../html-otros/login.php">Inicia sesión aquí</a></p>
         </form>
       </div>
     </section>
