@@ -70,7 +70,7 @@
                 
                 // Llamar al metodo del modelo para obtener
                 $response = usuarioModel::getProfileByUserId($data);
-                print_r($response);
+                // print_r($response);
 
                 return $response;
 

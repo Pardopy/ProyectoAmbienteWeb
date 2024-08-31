@@ -221,3 +221,23 @@ CREATE PROCEDURE GetDetallesPedidoByPedidoID(
 BEGIN
     SELECT * FROM Detalles_Pedido WHERE pedido_id = p_pedido_id;
 END //
+
+-- Obtener todos los foros
+DELIMITER //
+CREATE PROCEDURE GetAllForos()
+BEGIN
+    SELECT * FROM Foros;
+END //
+DELIMITER ;
+
+-- Nuevo insertar foro
+DELIMITER //
+CREATE PROCEDURE InsertForo(
+    IN p_usuario_id INT,
+    IN p_titulo VARCHAR(255),
+    IN p_descripcion TEXT
+)
+BEGIN
+    INSERT INTO Foros (usuario_id, titulo, descripcion)
+    VALUES (p_usuario_id, p_titulo, p_descripcion);
+END //
