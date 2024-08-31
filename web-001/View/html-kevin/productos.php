@@ -35,7 +35,7 @@
 
                     // Se agrega el producto al carrito
                     array_push($_SESSION['cart'], array(
-                        'producto_id' => $_POST['idProducto'],
+                        'idProducto' => $_POST['idProducto'],
                         'cantidad' => 1
                     ));
                     // print_r($_SESSION['cart']);
@@ -51,14 +51,14 @@
                     $found = false;
 
                     foreach ($_SESSION['cart'] as $item) {
-                        if ($item['producto_id'] == $_POST['idProducto']) {
+                        if ($item['idProducto'] == $_POST['idProducto']) {
                             // Si ya existe, se incrementa la cantidad
                             $item['cantidad'] += 1;
                             $found = true;
                             
                             // Se busca y actualiza la cantidad del item del subarray en la variable de sesion
                             foreach ($_SESSION['cart'] as $key => $value) {
-                                if ($value['producto_id'] == $_POST['idProducto']) {
+                                if ($value['idProducto'] == $_POST['idProducto']) {
                                     $_SESSION['cart'][$key]['cantidad'] = $item['cantidad'];
                                 }
                             }
@@ -80,7 +80,7 @@
                     if (!$found) {
                         // Si no existe, se agrega al carrito
                         array_push($_SESSION['cart'], array(
-                            'producto_id' => $_POST['idProducto'],
+                            'idProducto' => $_POST['idProducto'],
                             'cantidad' => 1
                         ));
                         // print_r($_SESSION['cart']);

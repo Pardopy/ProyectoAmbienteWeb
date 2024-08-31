@@ -6,11 +6,33 @@
     session_start();
     
     // Verificar si el carrito existe
-    // if (!isset($_SESSION['carrito'])) {
-    //     header('Location: ../html-kevin/productos.php');
-    // } else {
-    //     $cart = $_SESSION['cart'];
-    // }
+    if (!isset($_SESSION['cart'])) {
+        header('Location: ../html-kevin/productos.php');
+    } else {
+        $cart = $_SESSION['cart'];
+        $total = 0;
+    }
+
+    // Verificar si se solicita eliminar un producto del carrito
+    if (isset($_GET['action'])) {
+
+      switch ($_GET['action']) {
+        case 'removeItem':
+
+          // Se busca el item en el carrito y se elimina
+          foreach ($_SESSION['cart'] as $key => $value) {
+            if ($value['idProducto'] == $_POST['idProducto']) {
+              unset($_SESSION['cart'][$key]);
+              break;
+            }
+          }
+
+          header('Location: carrito.php');
+
+          break;
+      }
+
+    }
 
 
 ?>
@@ -92,61 +114,50 @@
                           <p class="mb-0">Hay X artículos en el carrito.</p>
                         </div>
                       </div>
-      
-                      <div class="card mb-3">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row align-items-center">
-                              <div>
-                                <img
-                                  src="https://unavatar.io/product1"
-                                  class="img-fluid rounded-3" alt="Producto listado" style="width: 65px;">
+
+                      <?php
+                        foreach ($cart as $item) {
+                            $producto = productosController::getProductById($item);
+                            $producto = $producto[0];
+
+                            $total += $producto['precio'] * $item['cantidad'];
+                            $itemTotal = $producto['precio'] * $item['cantidad'];
+
+                      ?>
+                        <div class="card mb-3">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div class="d-flex flex-row align-items-center">
+                                <div>
+                                  <img
+                                    src="https://unavatar.io/product1"
+                                    class="img-fluid rounded-3" alt="Producto listado" style="width: 65px;">
+                                </div>
+                                <div class="ms-3">
+                                  <h5><?=$producto['nombre_producto']?></h5>
+                                  <p class="small mb-0"><?=$producto['descripcion']?></p>
+                                </div>
                               </div>
-                              <div class="ms-3">
-                                <h5>Producto 1</h5>
-                                <p class="small mb-0">Descripción de producto</p>
+                              <div class="d-flex flex-row align-items-center">
+                                <div style="width: 50px;">
+                                  <h5 class="fw-normal mb-0"><?=$item['cantidad']?></h5>
+                                </div>
+                                <div style="width: 80px;">
+                                  <h5 class="mb-0">$<?=$itemTotal?></h5>
+                                </div>
+                                  <form action="?action=removeItem" method="POST"
+                                        id="removeFromCart">
+                                        <input type="text" name="idProducto" id="idProducto" value="<?=$producto['producto_id']?>" required hidden>
+                                    <button type="submit" class="text-danger" style="background-color: transparent;"><i class="fas fa-trash-alt"></i></button>
+                                    <!-- <a href="#!" class="text-danger"><i class="fas fa-trash-alt"></i></a> -->
+                                  </form>
                               </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center">
-                              <div style="width: 50px;">
-                                <h5 class="fw-normal mb-0">2</h5>
-                              </div>
-                              <div style="width: 80px;">
-                                <h5 class="mb-0">₡40.000</h5>
-                              </div>
-                              <a href="#!" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                             </div>
                           </div>
                         </div>
-                      </div>
-      
-                      <div class="card mb-3">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row align-items-center">
-                              <div>
-                                <img
-                                src="https://unavatar.io/avatar200"
-                                  class="img-fluid rounded-3" alt="Producto listado" style="width: 65px;">
-                              </div>
-                              <div class="ms-3">
-                                <h5>Producto 2</h5>
-                                <p class="small mb-0">Descripción de producto</p>
-                              </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center">
-                              <div style="width: 50px;">
-                                <h5 class="fw-normal mb-0">2</h5>
-                              </div>
-                              <div style="width: 80px;">
-                                <h5 class="mb-0">₡50.000</h5>
-                              </div>
-                              <a href="#!" class="text-danger"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-      
+                      <?php
+                        }
+                      ?>      
       
                     </div>
                     <!-- Detalles de Pago -->

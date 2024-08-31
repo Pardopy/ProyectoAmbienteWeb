@@ -74,7 +74,7 @@
 
                 // Se llama al metodo del modelo para obtener un producto por id
                 $result = productosModel::getProductById($data);
-                print_r($result);
+                // print_r($result);
                 // header('Location: ../html-kevin/productos.php');
                 return $result;
 
