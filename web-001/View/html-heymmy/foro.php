@@ -1,40 +1,183 @@
-<?php
-    // Iniciar la sesión
-    session_start();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <?php
-    // Si el usuario es agricultor, redirigirlo a la página de perfil de agricultor
-    if ($_SESSION['tipoUsuario'] == 'Agricultor') {
-  ?>
-    <meta http-equiv="refresh" content="3;url=../html-heymmy/perfilAgricultor.php">
-  <?php
-    } else {
-  ?> 
-    <meta http-equiv="refresh" content="3;url=perfilComprador.php">
-  <?php
-    }
-  ?>
-  
-  <title>AgroConnect - Pefil</title>
-
-  <!-- Fonts -->
+  <title>Foro y Comunidad - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="styleKevin.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f2f5;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    .contenedor {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px; /* Añadido para espaciado */
+    }
+
+    /* Header */
+    header {
+      background-color: #213435;
+      color: #fff;
+      padding: 10px 0;
+    }
+
+    .logotipo {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .foro-comunidad {
+      text-align: center;
+      margin: 50px auto;
+    }
+
+    .publicaciones {
+      margin-bottom: 50px;
+    }
+
+    .publicacion {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .publicacion h3 {
+      margin-top: 0;
+    }
+
+    .crear-publicacion {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .crear-publicacion form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .crear-publicacion label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .crear-publicacion input, .crear-publicacion textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .crear-publicacion button {
+      width: 100%;
+      background-color: #213435;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .crear-publicacion button:hover {
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #213435;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+    }
+
+    .contenedor-footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .columna-pie-de-index {
+      width: 33.33%;
+      box-sizing: border-box;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .columna-pie-de-index p,
+    .columna-pie-de-index ul {
+      margin: 0;
+    }
+
+    .columna-pie-de-index nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .columna-pie-de-index nav ul li {
+      margin: 5px 0; /* Espaciado vertical entre los elementos de la lista */
+    }
+
+    .columna-pie-de-index nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .columna-pie-de-index nav ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
+<body>
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
@@ -99,21 +242,53 @@
     </div>
   </header>
 
-    <main class="main-bg-soporte">
-        <div class="div-bg-soporte d-flex" style="height: 75vh;">
-            <div class="container py-5">
+  <main>
+    <section class="foro-comunidad">
+      <div class="contenedor">
+        <h2>Foro y Comunidad</h2>
+        
+        <div class="publicaciones" id="publicaciones">
+          <div class="publicacion">
+            <h3>Título de la Publicación</h3>
+            <p class="autor">Por Juan Pérez</p>
+            <p class="fecha">Publicado el 10 de julio de 2024</p>
+            <p class="contenido">
+              Contenido de la publicación. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
+          </div>
 
-                <div class="d-flex align-items-center justify-content-center h-100">
-                    <div class="text-light">
-                        <h2 class="fw-bold">Perfil guardado con éxito.</h2>
-                        <p>Los datos del perfil han sido guardados. Puede modificarlos en cualquier momento.</p>
-                    </div>
-                </div>
-
-
-            </div>
+          <!-- Ejemplo de otra publicación -->
+          <div class="publicacion">
+            <h3>Otra Publicación</h3>
+            <p class="autor">Por María Gómez</p>
+            <p class="fecha">Publicado el 11 de julio de 2024</p>
+            <p class="contenido">
+              Contenido de otra publicación. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
+          </div>
         </div>
-    </main>
+
+        <div class="crear-publicacion">
+          <h3>Crear Nueva Publicación</h3>
+          <form id="nueva-publicacion-form">
+            <div class="form-group">
+              <label for="titulo">Título</label>
+              <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+              <label for="contenido">Contenido</label>
+              <textarea id="contenido" name="contenido" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="boton boton-primario">Publicar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer modificado -->
   <footer style="position: relative;">
@@ -131,7 +306,7 @@
         </nav>
       </div>
       <div class="columna-pie-de-index">
-        <nav>
+        <nav style="margin-left: 20vh;">
           <ul>
             <?php
               // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -153,10 +328,6 @@
     </div>
   </footer>
 
-
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js.js"></script>
+  <script src="foro.js"></script>
 </body>
 </html>

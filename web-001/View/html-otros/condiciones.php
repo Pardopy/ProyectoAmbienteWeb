@@ -1,42 +1,16 @@
-<?php
-    // Iniciar la sesión
-    session_start();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <?php
-    // Si el usuario es agricultor, redirigirlo a la página de perfil de agricultor
-    if ($_SESSION['tipoUsuario'] == 'Agricultor') {
-  ?>
-    <meta http-equiv="refresh" content="3;url=../html-heymmy/perfilAgricultor.php">
-  <?php
-    } else {
-  ?> 
-    <meta http-equiv="refresh" content="3;url=perfilComprador.php">
-  <?php
-    }
-  ?>
-  
-  <title>AgroConnect - Pefil</title>
-
-  <!-- Fonts -->
+  <title>Términos y Condiciones - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="styleKevin.css">
-
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-  <!-- Header modificado -->
-  <header>
+<!-- Header modificado -->
+<header>
     <div class="contenedor">
       <a href="../html-otros/index.php" class="logotipo">AgroConnect</a>
       
@@ -99,24 +73,29 @@
     </div>
   </header>
 
-    <main class="main-bg-soporte">
-        <div class="div-bg-soporte d-flex" style="height: 75vh;">
-            <div class="container py-5">
+<main>
+  <section class="contenido-legal">
+    <div class="contenedor">
+      <h1>Términos y Condiciones de Uso</h1>
+      <div class="terminos">
+        <h2>1. Aceptación de los Términos</h2>
+        <p>Al acceder y utilizar AgroConnect, usted acepta estar sujeto a estos términos y condiciones en su totalidad.</p>
 
-                <div class="d-flex align-items-center justify-content-center h-100">
-                    <div class="text-light">
-                        <h2 class="fw-bold">Perfil guardado con éxito.</h2>
-                        <p>Los datos del perfil han sido guardados. Puede modificarlos en cualquier momento.</p>
-                    </div>
-                </div>
+        <h2>2. Uso Permitido</h2>
+        <p>Está permitido utilizar AgroConnect para conectarse con compradores y vender productos agrícolas bajo los términos acordados.</p>
 
+        <h2>3. Responsabilidades del Usuario</h2>
+        <p>Los usuarios deben mantener la confidencialidad de su cuenta y ser responsables de todas las actividades realizadas bajo su cuenta.</p>
 
-            </div>
-        </div>
-    </main>
+        <h2>4. Modificaciones</h2>
+        <p>Nos reservamos el derecho de modificar estos términos en cualquier momento sin previo aviso.</p>
+      </div>
+    </div>
+  </section>
+</main>
 
-  <!-- Footer modificado -->
-  <footer style="position: relative;">
+<!-- Footer modificado -->
+<footer style="position: relative;">
     <div class="contenedor">
       <div class="columna-pie-de-index">
         <p>&copy; 2024 AgroConnect</p>
@@ -131,7 +110,7 @@
         </nav>
       </div>
       <div class="columna-pie-de-index">
-        <nav>
+        <nav style="margin-left: 20vh;">
           <ul>
             <?php
               // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -153,10 +132,5 @@
     </div>
   </footer>
 
-
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js.js"></script>
 </body>
 </html>

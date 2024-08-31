@@ -1,40 +1,152 @@
-<?php
-    // Iniciar la sesión
-    session_start();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <?php
-    // Si el usuario es agricultor, redirigirlo a la página de perfil de agricultor
-    if ($_SESSION['tipoUsuario'] == 'Agricultor') {
-  ?>
-    <meta http-equiv="refresh" content="3;url=../html-heymmy/perfilAgricultor.php">
-  <?php
-    } else {
-  ?> 
-    <meta http-equiv="refresh" content="3;url=perfilComprador.php">
-  <?php
-    }
-  ?>
-  
-  <title>AgroConnect - Pefil</title>
-
-  <!-- Fonts -->
+  <title>Información de Certificaciones - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="styleKevin.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f2f5;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    .contenedor {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px; /* Espaciado */
+    }
+
+    /* Header */
+    header {
+      background-color: #213435;
+      color: #fff;
+      padding: 10px 0;
+    }
+
+    .logotipo {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main section */
+    main {
+      flex: 1;
+    }
+
+    .informacion-certificaciones {
+      padding: 40px 0; /* Espaciado adicional */
+    }
+
+    .informacion-certificaciones h2 {
+      margin-bottom: 20px;
+      color: #213435;
+      text-align: center;
+    }
+
+    .certificacion {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .certificacion h3 {
+      margin-top: 0;
+      color: #213435;
+    }
+
+    .certificacion p {
+      margin: 10px 0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #213435;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+    }
+
+    .contenedor-footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .columna-pie-de-index {
+      width: 33.33%;
+      box-sizing: border-box;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .columna-pie-de-index p,
+    .columna-pie-de-index ul {
+      margin: 0;
+    }
+
+    .columna-pie-de-index nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .columna-pie-de-index nav ul li {
+      margin: 5px 0; /* Espaciado vertical entre los elementos de la lista */
+    }
+
+    .columna-pie-de-index nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .columna-pie-de-index nav ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
+<body>
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
@@ -99,21 +211,30 @@
     </div>
   </header>
 
-    <main class="main-bg-soporte">
-        <div class="div-bg-soporte d-flex" style="height: 75vh;">
-            <div class="container py-5">
+  <main>
+    <section class="informacion-certificaciones">
+      <div class="contenedor">
+        <h2>Información de Certificaciones para Agricultores</h2>
 
-                <div class="d-flex align-items-center justify-content-center h-100">
-                    <div class="text-light">
-                        <h2 class="fw-bold">Perfil guardado con éxito.</h2>
-                        <p>Los datos del perfil han sido guardados. Puede modificarlos en cualquier momento.</p>
-                    </div>
-                </div>
-
-
-            </div>
+        <div class="certificacion">
+          <h3>Certificación Orgánica</h3>
+          <p>La certificación orgánica garantiza que los productos son cultivados sin el uso de pesticidas ni fertilizantes sintéticos, promoviendo prácticas agrícolas sostenibles y respetuosas con el medio ambiente.</p>
         </div>
-    </main>
+
+        <div class="certificacion">
+          <h3>Fair Trade (Comercio Justo)</h3>
+          <p>El comercio justo asegura que los agricultores reciben un precio justo por sus productos, promoviendo condiciones laborales seguras y sostenibles, así como la inversión en comunidades locales.</p>
+        </div>
+
+        <div class="certificacion">
+          <h3>GlobalGAP</h3>
+          <p>GlobalGAP establece estándares para la producción agrícola global, garantizando la seguridad alimentaria, la sostenibilidad ambiental y el bienestar de los trabajadores en las explotaciones agrícolas.</p>
+        </div>
+
+       
+      </div>
+    </section>
+  </main>
 
   <!-- Footer modificado -->
   <footer style="position: relative;">
@@ -131,7 +252,7 @@
         </nav>
       </div>
       <div class="columna-pie-de-index">
-        <nav>
+        <nav style="margin-left: 20vh;">
           <ul>
             <?php
               // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -152,11 +273,5 @@
       </div>
     </div>
   </footer>
-
-
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js.js"></script>
 </body>
 </html>

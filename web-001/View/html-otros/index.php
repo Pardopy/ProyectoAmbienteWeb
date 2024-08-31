@@ -38,15 +38,34 @@
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
-      <a href="../html-otros/Index.html" class="logotipo">AgroConnect</a>
+      <a href="../html-otros/index.php" class="logotipo">AgroConnect</a>
       
       <nav>
         <ul>
           <li><a href="../html-otros/index.php">Inicio</a></li>
           <li><a href="../html-kevin/productos.php">Productos</a></li>
-          <li><a href="../html-heymmy/consultar.php">Pedidos</a></li>
-          <li><a href="../html-heymmy/Foro.html">Foro</a></li>
+          
+          <?php
+            // Si el usuario está logueado, mostrar el apartado de Pedidos
+            if (isset($_SESSION['idUsuario'])) {
+           ?>
+                <li><a href="../html-heymmy/consultar.php">Pedidos</a></li>
+            <?php
+                }
+            ?>
+          <li><a href="../html-heymmy/foro.php">Foro</a></li>
           <li><a href="../html-kevin/soporte.php">Soporte</a></li>
+
+          <?php
+            // Si el carrito de compras existe, mostrar el icono
+            if (isset($_SESSION['cart'])) {
+          ?>
+            <li style="padding-right: 0;"><a href="../html-kevin/carrito.php" class="boton" style="padding-right: 25%; margin-right: 2rem;">
+            <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </a></li>
+          <?php
+            }
+           ?>
 
           <?php
             // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -156,9 +175,9 @@
       <div class="columna-pie-de-index">
         <nav>
           <ul>
-            <li><a href="../html-otros/HerraBenAgri.html">Herramientas</a></li>
-            <li><a href="../html-heymmy/Certificaciones.html">Certificaciones</a></li>
-            <li><a href="../html-otros/TerminosCondiciones.html">Términos y condiciones</a></li>
+            <li><a href="../html-otros/herramientas.php">Herramientas</a></li>
+            <li><a href="../html-heymmy/certificaciones.php">Certificaciones</a></li>
+            <li><a href="../html-otros/condiciones.php">Términos y condiciones</a></li>
           </ul>
         </nav>
       </div>

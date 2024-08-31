@@ -1,40 +1,16 @@
-<?php
-    // Iniciar la sesión
-    session_start();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <?php
-    // Si el usuario es agricultor, redirigirlo a la página de perfil de agricultor
-    if ($_SESSION['tipoUsuario'] == 'Agricultor') {
-  ?>
-    <meta http-equiv="refresh" content="3;url=../html-heymmy/perfilAgricultor.php">
-  <?php
-    } else {
-  ?> 
-    <meta http-equiv="refresh" content="3;url=perfilComprador.php">
-  <?php
-    }
-  ?>
-  
-  <title>AgroConnect - Pefil</title>
-
-  <!-- Fonts -->
+  <title>Recursos y Herramientas para Agricultores - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="styleKevin.css">
-
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
+<body>
+  
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
@@ -99,21 +75,45 @@
     </div>
   </header>
 
-    <main class="main-bg-soporte">
-        <div class="div-bg-soporte d-flex" style="height: 75vh;">
-            <div class="container py-5">
-
-                <div class="d-flex align-items-center justify-content-center h-100">
-                    <div class="text-light">
-                        <h2 class="fw-bold">Perfil guardado con éxito.</h2>
-                        <p>Los datos del perfil han sido guardados. Puede modificarlos en cualquier momento.</p>
-                    </div>
-                </div>
-
-
-            </div>
+  <main>
+    <section class="recursos">
+      <div class="contenedor">
+        <h2>Recursos y Herramientas para Agricultores</h2>
+        <div class="cuadricula-recursos">
+          <div class="recurso">
+            <i class="fas fa-seedling"></i>
+            <h3>Guía de Prácticas Agrícolas</h3>
+            <p>Descubre consejos y técnicas para mejorar la calidad y rendimiento de tus cultivos. Aprende sobre rotación de cultivos, manejo integrado de plagas y más.</p>
+          </div>
+          <div class="recurso">
+            <i class="fas fa-tools"></i>
+            <h3>Herramientas de Agricultura</h3>
+            <p>Explora herramientas avanzadas para el manejo y cuidado de tus cultivos. Incluye herramientas para monitoreo del suelo, sistemas de riego automatizados y más.</p>
+          </div>
+          <div class="recurso">
+            <i class="fas fa-book"></i>
+            <h3>Documentación y Normativas</h3>
+            <p>Accede a documentos y normativas actualizadas sobre agricultura sostenible. Conoce las regulaciones locales e internacionales para la producción y comercialización de alimentos.</p>
+          </div>
+          <div class="recurso">
+            <i class="fas fa-chart-line"></i>
+            <h3>Análisis de Mercado</h3>
+            <p>Obtén acceso a herramientas de análisis de mercado agrícola. Comprende las tendencias de demanda, precios de mercado y oportunidades de exportación e importación.</p>
+          </div>
+          <div class="recurso">
+            <i class="fas fa-tractor"></i>
+            <h3>Mecanización Agrícola</h3>
+            <p>Descubre equipos y tecnologías de mecanización para optimizar la producción agrícola. Incluye información sobre tractores, cosechadoras y otras máquinas especializadas.</p>
+          </div>
+          <div class="recurso">
+            <i class="fas fa-users"></i>
+            <h3>Redes y Comunidades</h3>
+            <p>Únete a redes y comunidades de agricultores para intercambiar experiencias, recibir apoyo técnico y participar en programas de capacitación y desarrollo.</p>
+          </div>
         </div>
-    </main>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer modificado -->
   <footer style="position: relative;">
@@ -131,7 +131,7 @@
         </nav>
       </div>
       <div class="columna-pie-de-index">
-        <nav>
+        <nav style="margin-left: 20vh;">
           <ul>
             <?php
               // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -152,11 +152,6 @@
       </div>
     </div>
   </footer>
-
-
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js.js"></script>
+  
 </body>
 </html>
