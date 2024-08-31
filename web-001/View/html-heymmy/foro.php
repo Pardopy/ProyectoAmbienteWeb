@@ -288,7 +288,7 @@
         <?php 
           if (count($foros) == 0) {
         ?>
-          <p>No hay publicaciones en el foro.</p>
+          <p style="color: #000;">No hay publicaciones.</p>
         <?php
           } else {
             foreach ($foros as $foro) {
@@ -297,7 +297,7 @@
               $perfil = $perfil[0];
         ?>
           <div class="publicacion">
-            <h3>Publicación</h3>
+            <h3><?=$foro['titulo']?></h3>
             <p class="autor"><?=$perfil['nombre_completo']?></p>
             <p class="fecha"><?=$foro['fecha_creacion']?></p>
             <p class="contenido"><?=$foro['descripcion']?></p>

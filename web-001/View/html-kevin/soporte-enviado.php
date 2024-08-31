@@ -126,7 +126,7 @@
   </section>
 
     <main class="main-bg-soporte">
-        <div class="div-bg-soporte d-flex" style="height: 75vh;">
+        <div class="div-bg-soporte d-flex" style="height: 82vh;">
             <div class="container py-5">
 
                 <div class="d-flex align-items-center justify-content-center h-100">

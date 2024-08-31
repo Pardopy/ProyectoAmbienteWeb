@@ -16,6 +16,9 @@
 
               // Se llama a la función login del controller
               loginController::login($_POST);
+              
+
+
               break;
           
           // Si el action es logout
@@ -119,7 +122,7 @@
             <input type="password" id="password" name="password" required>
             <button type="submit" class="boton boton-primario">Iniciar Sesión</button>
           </form>
-          <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
+          <p>¿No tienes una cuenta? <a href="../html-heymmy/registro.php">Regístrate aquí</a></p>
         </div>
       </div>
     </section>
