@@ -70,6 +70,7 @@ CREATE TABLE Detalles_Pedido (
 
 CREATE TABLE Foros (
     foro_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP

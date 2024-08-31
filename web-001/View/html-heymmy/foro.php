@@ -1,9 +1,37 @@
 <?php
     // Imports
     require_once('../../Controller/loginController.php');
+    require_once('../../Controller/foroController.php');
+    require_once('../../Controller/usuarioController.php');
 
     // Se inicializa la sesion
     session_start();
+
+    // Obtener todos los foros
+    $foros = foroController::getAllForos();
+
+    if (isset($_GET['action'])) {
+        switch ($_GET['action']) {
+            case 'logout':
+                loginController::logout();
+                break;
+
+            case 'addForo':
+                if (isset($_SESSION['idUsuario'])) {
+                    $data = array(
+                        'idUsuario' => $_POST['idUsuario'],
+                        'titulo' => $_POST['titulo'],
+                        'descripcion' => $_POST['contenido']
+                    );
+
+                    foroController::insertForo($data);
+                } else {
+                    header('Location: ../html-otros/login.php');
+                }
+                
+                break;
+        }
+    }
 
 ?>
 
@@ -255,47 +283,59 @@
     <section class="foro-comunidad">
       <div class="contenedor">
         <h2>Foro y Comunidad</h2>
-        
         <div class="publicaciones" id="publicaciones">
+
+        <?php 
+          if (count($foros) == 0) {
+        ?>
+          <p>No hay publicaciones en el foro.</p>
+        <?php
+          } else {
+            foreach ($foros as $foro) {
+              $data = array('idUsuario' => $foro['usuario_id']);
+              $perfil = usuarioController::getProfileByUserId($data);
+              $perfil = $perfil[0];
+        ?>
           <div class="publicacion">
-            <h3>Título de la Publicación</h3>
-            <p class="autor">Por Juan Pérez</p>
-            <p class="fecha">Publicado el 10 de julio de 2024</p>
-            <p class="contenido">
-              Contenido de la publicación. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
+            <h3>Publicación</h3>
+            <p class="autor"><?=$perfil['nombre_completo']?></p>
+            <p class="fecha"><?=$foro['fecha_creacion']?></p>
+            <p class="contenido"><?=$foro['descripcion']?></p>
             <button class="like-btn">👍 Like <span class="like-count">0</span></button>
             <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
-
-          <!-- Ejemplo de otra publicación -->
-          <div class="publicacion">
-            <h3>Otra Publicación</h3>
-            <p class="autor">Por María Gómez</p>
-            <p class="fecha">Publicado el 11 de julio de 2024</p>
-            <p class="contenido">
-              Contenido de otra publicación. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
-            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
-          </div>
-        </div>
-
-        <div class="crear-publicacion">
+        <?php
+            }
+          }
+        ?>
+      </div>
+        
+      <div class="crear-publicacion" style="width: 18rem;">
           <h3>Crear Nueva Publicación</h3>
-          <form id="nueva-publicacion-form">
+          <form action="foro.php?action=addForo" method="POST"
+                id="nueva-publicacion-form">
+
+            <?php
+              if (isset($_SESSION['idUsuario'])) {
+            ?>
+              <input type="hidden" name="idUsuario" value="<?=$_SESSION['idUsuario']?>">
+            <?php
+              }
+            ?>
+            
             <div class="form-group">
               <label for="titulo">Título</label>
-              <input type="text" id="titulo" name="titulo" required>
+              <input type="text" id="titulo" name="titulo" required style="width: 90%;">
             </div>
             <div class="form-group">
               <label for="contenido">Contenido</label>
-              <textarea id="contenido" name="contenido" rows="4" required></textarea>
+              <textarea id="contenido" name="contenido" rows="4" required style="width: 90%;"></textarea>
             </div>
             <button type="submit" class="boton boton-primario">Publicar</button>
           </form>
         </div>
-      </div>
+          
+        
     </section>
   </main>
 
