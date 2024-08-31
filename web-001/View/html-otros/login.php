@@ -2,6 +2,9 @@
     // Imports
     require_once('../../Controller/loginController.php');
 
+    // Iniciar la sesión
+    session_start();
+
     // Se verifica si se ha enviado un action por GET
     if (isset($_GET['action'])) {
         

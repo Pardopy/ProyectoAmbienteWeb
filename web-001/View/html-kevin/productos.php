@@ -7,7 +7,6 @@
     $listadoCategorias = categoriaController::getAllCategories();
 
     session_start();
-    print_r($_SESSION);
 
     // Verificar si se ha enviado el formulario de busqueda
      if (isset($_GET['action'])) {

@@ -3,6 +3,9 @@
     // Imports
     require_once('../../Controller/productosController.php');
 
+    // Se inicializa la sesión
+    session_start();
+
     // Obtener el id del producto de la URL
     $idProducto = $_GET['idProducto'];
 

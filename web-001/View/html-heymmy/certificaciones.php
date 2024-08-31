@@ -1,3 +1,12 @@
+<?php
+    // Imports
+    require_once('../../Controller/loginController.php');
+
+    // Se inicializa la sesion
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

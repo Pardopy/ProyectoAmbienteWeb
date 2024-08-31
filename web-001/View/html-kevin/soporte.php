@@ -2,6 +2,9 @@
     // Imports
     require_once('../../Controller/soporteController.php');
 
+    // Iniciar la sesión
+    session_start();
+
     if (isset($_GET['action'])) {
       
       switch ($_GET['action']) {

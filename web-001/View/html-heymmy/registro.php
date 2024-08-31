@@ -2,6 +2,9 @@
     // Imports
     require_once('../../Controller/usuarioController.php');
 
+    // Se inicializa la sesión
+    session_start();
+
     if (isset($_GET['action'])) {
       
       switch ($_GET['action']) {
