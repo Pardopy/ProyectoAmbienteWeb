@@ -1,3 +1,22 @@
+<?php
+    // Imports
+    require_once('../../Controller/pedidoController.php');
+
+    // Iniciar la sesión
+    session_start();
+
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION['idUsuario'])) {
+        header('Location: ../html-otros/login.html');
+    } else {
+        $idUsuario = $_SESSION['idUsuario'];
+
+        $pedidos = pedidoController::getOrdersByUserId($_SESSION);
+
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -187,13 +206,26 @@
         <table>
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Correo electrónico</th>
-              <th>Tipo de usuario</th>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
-          <tbody id="usuariosTableBody">
-            <!-- Los registros se insertarán aquí -->
+          <tbody>
+            <?php
+                foreach ($pedidos as $pedido) {
+            ?>
+              <tr>
+                <td><?=$pedido['pedido_id']?></td>
+                <td><?=$pedido['fecha_pedido']?></td>
+                <td><?=$pedido['estado_pedido']?></td>
+                <td><a href="detalleUsuario.html" class="boton boton-primario">Ver detalles</a></td>
+              </tr>
+            <?php
+                }
+            ?>
+
           </tbody>
         </table>
       </div>

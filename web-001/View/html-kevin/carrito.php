@@ -61,6 +61,8 @@
               // Se inserta el detalle del pedido
               pedidoController::addOrderDetails($data);
 
+              header('Location: ../html-heymmy/consultar.php');
+
             }
 
           }
