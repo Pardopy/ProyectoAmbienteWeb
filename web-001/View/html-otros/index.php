@@ -44,7 +44,7 @@
         <ul>
           <li><a href="../html-otros/index.php">Inicio</a></li>
           <li><a href="../html-kevin/productos.php">Productos</a></li>
-          <li><a href="../html-otros/GestionPedidos.html">Pedidos</a></li>
+          <li><a href="../html-heymmy/consultar.php">Pedidos</a></li>
           <li><a href="../html-heymmy/Foro.html">Foro</a></li>
           <li><a href="../html-kevin/soporte.php">Soporte</a></li>
 

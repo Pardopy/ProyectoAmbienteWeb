@@ -46,7 +46,6 @@
 
             // Se insertan los detalles del pedido
             foreach ($_SESSION['cart'] as $item) {
-
               $producto = productosController::getProductById($item);
               $producto = $producto[0];
               
@@ -60,6 +59,9 @@
 
               // Se inserta el detalle del pedido
               pedidoController::addOrderDetails($data);
+
+              // Se limpia el carrito
+              unset($_SESSION['cart']);
 
               header('Location: ../html-heymmy/consultar.php');
 

@@ -205,87 +205,99 @@
 
     <div class="contenedor-principal">
       <div class="lista-usuarios">
-        <h1>Consultar Registro de Usuarios</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Fecha</th>
-              <th>Estado</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-                foreach ($pedidos as $pedido) {
-                  $data = array('idPedido' => $pedido['pedido_id']);
-
-                  $detallesPedido = pedidoController::getOrderDetails($data);
-                  print_r($detallesPedido);
-            ?>
+        <h1>Lista de Pedidos</h1>
+        <?php
+          if (count($pedidos) > 0) {
+        ?>
+          <table>
+            <thead>
               <tr>
-                <td><?=$pedido['pedido_id']?></td>
-                <td><?=$pedido['fecha_pedido']?></td>
-                <td><?=$pedido['estado_pedido']?></td>
-                <td>
-                  <a href="detalleUsuario.html" ></a>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="boton boton-primario" style="border: 0px;" data-bs-toggle="modal" data-bs-target="<?="#exampleModal" . $pedido['pedido_id']?>">
-                    Ver detalles
-                  </button>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                  foreach ($pedidos as $pedido) {
+                    $data = array('idPedido' => $pedido['pedido_id']);
 
-                  <!-- Modal -->
-                    <div class="modal fade" id="<?="exampleModal" . $pedido['pedido_id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <table>
-                              <thead>
-                                <tr>
-                                  <th>Producto</th>
-                                  <th>Cantidad</th>
-                                  <th>Precio</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <?php
-                                  foreach ($detallesPedido as $detalle) {
-                                    $data = array('idProducto' => $detalle['producto_id']);
-                                    $producto = productosController::getProductById($data);
-                                    $producto = $producto[0];
-                                ?>
+                    $detallesPedido = pedidoController::getOrderDetails($data);
+                    // print_r($detallesPedido);
+              ?>
+                <tr>
+                  <td><?=$pedido['pedido_id']?></td>
+                  <td><?=$pedido['fecha_pedido']?></td>
+                  <td><?=$pedido['estado_pedido']?></td>
+                  <td>
+                    <a href="detalleUsuario.html" ></a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="boton boton-primario" style="border: 0px;" data-bs-toggle="modal" data-bs-target="<?="#exampleModal" . $pedido['pedido_id']?>">
+                      Ver detalles
+                    </button>
+
+                    <!-- Modal -->
+                      <div class="modal fade" id="<?="exampleModal" . $pedido['pedido_id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <table>
+                                <thead>
                                   <tr>
-                                    <td><?=$producto['nombre_producto']?></td>
-                                    <td><?=$detalle['cantidad']?></td>
-                                    <td><?=$producto['precio']?></td>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
                                   </tr>
-                                <?php
-                                  }
-                                ?>
-                              </tbody>
-                            </table>
-                            
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="boton boton-primario" style="border: 0px;" data-bs-dismiss="modal">Cerrar</button>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    foreach ($detallesPedido as $detalle) {
+                                      $data = array('idProducto' => $detalle['producto_id']);
+                                      $producto = productosController::getProductById($data);
+                                      $producto = $producto[0];
+                                  ?>
+                                    <tr>
+                                      <td><?=$producto['nombre_producto']?></td>
+                                      <td><?=$detalle['cantidad']?></td>
+                                      <td><?=$producto['precio']?></td>
+                                    </tr>
+                                  <?php
+                                    }
+                                  ?>
+                                </tbody>
+                              </table>
+                              
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="boton boton-primario" style="border: 0px;" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                </td>
-                
-              </tr>
-            <?php
-                }
-            ?>
+                  </td>
+                  
+                </tr>
+              <?php
+                  }
+              ?>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        <?php
+          } else {
+        ?>
+          <div class="d-flex justify-content-center">
+            <p class="text-dark">No hay pedidos registrados</p>
+          </div>
+        <?php
+          }
+        ?>
       </div>
     </div>
   </main>
