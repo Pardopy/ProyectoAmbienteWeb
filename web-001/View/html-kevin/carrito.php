@@ -1,3 +1,20 @@
+<?php
+    // Imports
+    require_once('../../Controller/productosController.php');
+
+
+    session_start();
+    
+    // Verificar si el carrito existe
+    // if (!isset($_SESSION['carrito'])) {
+    //     header('Location: ../html-kevin/productos.php');
+    // } else {
+    //     $cart = $_SESSION['cart'];
+    // }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
