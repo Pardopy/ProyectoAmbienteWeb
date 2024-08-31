@@ -44,7 +44,7 @@
                     echo "<script>alert('Producto agregado al carrito (Carrito se crea)');</script>";
 
                     // Se redirige a la pagina de productos
-                    // header('Location: productos.php');
+                    header('Location: productos.php');
                     
                 } else {
                     // Se verifica si el producto ya existe en el carrito
@@ -71,7 +71,7 @@
                             echo "<script>alert('Producto agregado al carrito (Carrito se actualiza en la cantidad)');</script>";
                             // print_r($_SESSION['cart']);
                             // Se redirige a la pagina de productos
-                            // header('Location: productos.php');
+                            header('Location: productos.php');
 
                             break;
                         }
@@ -88,7 +88,7 @@
                         echo "<script>alert('Producto agregado al carrito (Se añade al carrito el nuevo)');</script>";
 
                         // Se redirige a la pagina de productos
-                        // header('Location: productos.php');
+                        header('Location: productos.php');
 
             
 

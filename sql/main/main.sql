@@ -178,3 +178,15 @@ BEGIN
     SELECT * FROM Productos WHERE producto_id = p_producto_id;
 END //
 DELIMITER ;
+
+-- Insertar un nuevo pedido y retornar el ID
+DELIMITER //
+CREATE PROCEDURE InsertPedidoAndReturn(
+    IN p_usuario_id INT,
+    IN p_estado_pedido ENUM('Pendiente', 'Enviado', 'Entregado', 'Cancelado')
+)
+BEGIN
+    INSERT INTO Pedidos (usuario_id, estado_pedido)
+    VALUES (p_usuario_id, p_estado_pedido);
+    SELECT * FROM Pedidos WHERE pedido_id = LAST_INSERT_ID();
+END //
