@@ -6,6 +6,9 @@
     // Iniciar la variable de categorias
     $listadoCategorias = categoriaController::getAllCategories();
 
+    session_start();
+    print_r($_SESSION);
+
     // Verificar si se ha enviado el formulario de busqueda
      if (isset($_GET['action'])) {
         
@@ -20,6 +23,73 @@
                 } elseif ($_POST['categoria_id'] != 0 && $_POST['keyword'] != "") {
                     $listadoProductos = productosController::getProductsByCategoryAndName($_POST);
                 }
+
+                break;
+
+            case 'addToCart':
+                // Se verifica si el carrito de compras existe
+                if (!isset($_SESSION['cart'])) {
+
+                    // Si no existe, se crea
+                    $_SESSION['cart'] = array();
+
+                    // Se agrega el producto al carrito
+                    array_push($_SESSION['cart'], array(
+                        'producto_id' => $_POST['idProducto'],
+                        'cantidad' => 1
+                    ));
+                    print_r($_SESSION['cart']);
+
+                    // Se muestra un mensaje de exito
+                    echo "<script>alert('Producto agregado al carrito');</script>";
+
+                    // Se redirige a la pagina de productos
+                    // header('Location: productos.php');
+                    
+                } else {
+                    // Se verifica si el producto ya existe en el carrito
+                    $found = false;
+
+                    foreach ($_SESSION['cart'] as $item) {
+                        if ($item['producto_id'] == $_POST['idProducto']) {
+                            // Si ya existe, se incrementa la cantidad
+                            $item['cantidad'] += 1;
+                            $found = true;
+                            
+                            // Se actualiza la cantidad del item del subarray en la variable de sesion
+                            $_SESSION['cart'][$item['producto_id'] - 1]['cantidad'] = $item['cantidad'];
+
+        
+                            // Se muestra un mensaje de exito
+                            echo "<script>alert('Producto agregado al carrito');</script>";
+                            print_r($_SESSION['cart']);
+                            // Se redirige a la pagina de productos
+                            // header('Location: productos.php');
+
+                            break;
+                        }
+
+                        if (!$found) {
+                            // Si no existe, se agrega al carrito
+                            array_push($_SESSION['cart'], array(
+                                'producto_id' => $_POST['idProducto'],
+                                'cantidad' => 1
+                            ));
+                            print_r($_SESSION['cart']);
+                            // Se muestra un mensaje de exito
+                            echo "<script>alert('Producto agregado al carrito');</script>";
+
+                            // Se redirige a la pagina de productos
+                            // header('Location: productos.php');
+    
+                
+
+                        }
+                    }
+                }
+
+
+
 
                 break;
         }
@@ -54,13 +124,50 @@
       
       <nav>
         <ul>
-          <li><a href="../html-otros/Index.html">Inicio</a></li>
-          <li><a href="../html-kevin/productos.html">Productos</a></li>
+          <li><a href="../html-otros/index.php">Inicio</a></li>
+          <li><a href="../html-kevin/productos.php">Productos</a></li>
           <li><a href="../html-otros/GestionPedidos.html">Pedidos</a></li>
           <li><a href="../html-heymmy/Foro.html">Foro</a></li>
-          <li><a href="../html-kevin/soporte.html">Soporte</a></li>
-          <li><a href="../html-heymmy/Registro.html" class="boton boton-primario">Registrarse</a></li>
-          <li><a href="../html-otros/login.html" class="boton boton-secundario">Iniciar sesión</a></li>
+          <li><a href="../html-kevin/soporte.php">Soporte</a></li>
+
+          <?php
+            // Si el carrito de compras existe, mostrar el icono
+            if (isset($_SESSION['cart'])) {
+          ?>
+            <li style="padding-right: 0;"><a href="../html-heymmy/perfilAgricultor.php" class="boton" style="padding-right: 25%; margin-right: 2rem;">
+            <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </a></li>
+          <?php
+            }
+           ?>
+
+          <?php
+            // Si el usuario está logueado, mostrar el botón de cerrar sesión
+            if (isset($_SESSION['email'])) {
+              if ($_SESSION['tipoUsuario'] == 'Agricultor') {
+          ?>
+                <li style="padding-right: 0;"><a href="../html-heymmy/perfilAgricultor.php" class="boton" style="padding-right: 25%;">
+                <svg width="32px" height="32px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>profile [#1341]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-180.000000, -2159.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M134,2008.99998 C131.783496,2008.99998 129.980955,2007.20598 129.980955,2004.99998 C129.980955,2002.79398 131.783496,2000.99998 134,2000.99998 C136.216504,2000.99998 138.019045,2002.79398 138.019045,2004.99998 C138.019045,2007.20598 136.216504,2008.99998 134,2008.99998 M137.775893,2009.67298 C139.370449,2008.39598 140.299854,2006.33098 139.958235,2004.06998 C139.561354,2001.44698 137.368965,1999.34798 134.722423,1999.04198 C131.070116,1998.61898 127.971432,2001.44898 127.971432,2004.99998 C127.971432,2006.88998 128.851603,2008.57398 130.224107,2009.67298 C126.852128,2010.93398 124.390463,2013.89498 124.004634,2017.89098 C123.948368,2018.48198 124.411563,2018.99998 125.008391,2018.99998 C125.519814,2018.99998 125.955881,2018.61598 126.001095,2018.10898 C126.404004,2013.64598 129.837274,2010.99998 134,2010.99998 C138.162726,2010.99998 141.595996,2013.64598 141.998905,2018.10898 C142.044119,2018.61598 142.480186,2018.99998 142.991609,2018.99998 C143.588437,2018.99998 144.051632,2018.48198 143.995366,2017.89098 C143.609537,2013.89498 141.147872,2010.93398 137.775893,2009.67298" id="profile-[#1341]"> </path> </g> </g> </g> </g></svg>
+                </a></li>
+            <?php
+              } else {
+            ?>
+                <li style="padding-right: 0;"><a href="../html-kevin/perfilComprador.php" class="boton" style="padding-right: 25%;">
+                <svg width="32px" height="32px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>profile [#1341]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-180.000000, -2159.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M134,2008.99998 C131.783496,2008.99998 129.980955,2007.20598 129.980955,2004.99998 C129.980955,2002.79398 131.783496,2000.99998 134,2000.99998 C136.216504,2000.99998 138.019045,2002.79398 138.019045,2004.99998 C138.019045,2007.20598 136.216504,2008.99998 134,2008.99998 M137.775893,2009.67298 C139.370449,2008.39598 140.299854,2006.33098 139.958235,2004.06998 C139.561354,2001.44698 137.368965,1999.34798 134.722423,1999.04198 C131.070116,1998.61898 127.971432,2001.44898 127.971432,2004.99998 C127.971432,2006.88998 128.851603,2008.57398 130.224107,2009.67298 C126.852128,2010.93398 124.390463,2013.89498 124.004634,2017.89098 C123.948368,2018.48198 124.411563,2018.99998 125.008391,2018.99998 C125.519814,2018.99998 125.955881,2018.61598 126.001095,2018.10898 C126.404004,2013.64598 129.837274,2010.99998 134,2010.99998 C138.162726,2010.99998 141.595996,2013.64598 141.998905,2018.10898 C142.044119,2018.61598 142.480186,2018.99998 142.991609,2018.99998 C143.588437,2018.99998 144.051632,2018.48198 143.995366,2017.89098 C143.609537,2013.89498 141.147872,2010.93398 137.775893,2009.67298" id="profile-[#1341]"> </path> </g> </g> </g> </g></svg>
+                </a></li>
+          <?php
+              }
+          ?>
+            <li><a href="../html-otros/index.php?action=logout" class="boton boton-secundario">Cerrar sesión</a></li>
+          <?php
+            } else {
+          ?>
+            <li><a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse</a></li>
+            <li><a href="../html-otros/login.php" class="boton boton-secundario">Iniciar sesión</a></li>
+          <?php
+            }
+          ?>
+
         </ul>
       </nav>
     </div>
@@ -79,7 +186,7 @@
   </section>
 
     <main class="main-bg-soporte">
-        <div class="div-bg-soporte pb-5" style="height: 75%;">
+        <div class="div-bg-soporte pb-5" style="min-height: 82%">
             <!-- Busqueda Avanzada -->
             
             <section class="position-sticky">
@@ -174,7 +281,13 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- <a href="#" class="btn btn-dark w-100 p-3 rounded-0 text-warning">AÑADIR AL CARRITO</a> -->
-                                        <a href="#" class="btn text-light w-100 p-3 rounded-0 " style="background-color: #648A64;">AÑADIR AL CARRITO</a>
+                                        <form   action="../html-kevin/productos.php?action=addToCart" method="POST"
+                                                id="addToCart">
+                                                <input type="text" name="idProducto" id="idProducto" value="<?=$producto['producto_id']?>" required hidden>
+
+                                            <button type="submit" class="btn text-light w-100 p-3 rounded-0 " style="background-color: #648A64;">AÑADIR AL CARRITO</button>    
+                                        </form>
+                                    
                                     </div>
                                 </div>
                             </div>                
@@ -187,97 +300,7 @@
                 <?php
                     }
                 ?>
-                    
-
-                    <!-- <div class="col-lg-4 col-md-12 mb-4"> -->
-                        <!-- Tarjeta de Producto -->
-                        <!-- <div class="card border-0 shadow rounded-0" style="width: 18rem;">
-                            <img src="https://th.bing.com/th/id/R.5eac731c2d8395d387a6ef3b341f95d4?rik=0ZGE32BAzcKYhQ&riu=http%3a%2f%2fiaas.or.id%2fwp-content%2fuploads%2f2020%2f11%2f1_fJKDHgHkGdMZD_9tzMkjKw-1024x604.jpeg&ehk=X9RN%2fUrA3%2b5J8q%2fMMFyLH%2feQbLechXBAbz9axCXm3bU%3d&risl=&pid=ImgRaw&r=0" class="card-img-top rounded-0" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <h4 class="card-title">Nombre Producto</h4>
-                                        <p class="card-text">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            (4)
-                                        </p>
-                                    </div>
-                                    <div class="col-2 d-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                                            <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row align-items-center text-center g-0">
-                                <div class="col-4">
-                                    <h5>$123</h5>
-                                </div>
-                                <div class="col-8">
-                                    <a href="#" class="btn btn-dark w-100 p-3 rounded-0 text-warning">AÑADIR AL CARRITO</a>
-                                    <a href="#" class="btn text-light w-100 p-3 rounded-0 " style="background-color: #648A64;">AÑADIR AL CARRITO</a>
-                                </div>
-                            </div>
-                        </div>                
-                    </div> -->
-<!-- 
-                <div class="row">
-                    <div class="col-lg-4 col-md-12"> -->
-                        <!-- Tarjeta de Producto -->
-                        <!-- <div class="card border-0 shadow rounded-0" style="width: 18rem;">
-                            <img src="https://th.bing.com/th/id/R.5eac731c2d8395d387a6ef3b341f95d4?rik=0ZGE32BAzcKYhQ&riu=http%3a%2f%2fiaas.or.id%2fwp-content%2fuploads%2f2020%2f11%2f1_fJKDHgHkGdMZD_9tzMkjKw-1024x604.jpeg&ehk=X9RN%2fUrA3%2b5J8q%2fMMFyLH%2feQbLechXBAbz9axCXm3bU%3d&risl=&pid=ImgRaw&r=0" class="card-img-top rounded-0" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <h4 class="card-title">Nombre Producto</h4>
-                                        <p class="card-text">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-warning" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                            </svg>
-                                            (4)
-                                        </p>
-                                    </div>
-                                    <div class="col-2 d-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                                            <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row align-items-center g-0">
-                                <div class="col-4">
-                                    <h5>$123</h5>
-                                </div>
-                                <div class="col-8"> -->
-                                    <!-- <a href="#" class="btn btn-dark w-100 p-3 rounded-0 text-warning">AÑADIR AL CARRITO</a> -->
-                                    <!-- <a href="#" class="btn text-light w-100 p-3 rounded-0 " style="background-color: #648A64;">AÑADIR AL CARRITO</a>
-                                </div>
-                            </div>
-                        </div>                
-                    </div>
-                </div> -->
+                
 
                     
 
@@ -288,7 +311,7 @@
 
 
   <!-- Footer modificado -->
-  <footer>
+  <footer class="fixed-bottom">
     <div class="contenedor">
       <div class="columna-pie-de-index">
         <p>&copy; 2024 AgroConnect</p>
