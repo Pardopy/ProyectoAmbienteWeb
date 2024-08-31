@@ -7,7 +7,6 @@
     $listadoCategorias = categoriaController::getAllCategories();
 
     session_start();
-    print_r($_SESSION);
 
     // Verificar si se ha enviado el formulario de busqueda
      if (isset($_GET['action'])) {
@@ -127,14 +126,22 @@
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
-      <a href="../html-otros/Index.html" class="logotipo">AgroConnect</a>
+      <a href="../html-otros/index.php" class="logotipo">AgroConnect</a>
       
       <nav>
         <ul>
           <li><a href="../html-otros/index.php">Inicio</a></li>
           <li><a href="../html-kevin/productos.php">Productos</a></li>
-          <li><a href="../html-otros/GestionPedidos.html">Pedidos</a></li>
-          <li><a href="../html-heymmy/Foro.html">Foro</a></li>
+          
+          <?php
+            // Si el usuario está logueado, mostrar el apartado de Pedidos
+            if (isset($_SESSION['idUsuario'])) {
+           ?>
+                <li><a href="../html-heymmy/consultar.php">Pedidos</a></li>
+            <?php
+                }
+            ?>
+          <li><a href="../html-heymmy/foro.php">Foro</a></li>
           <li><a href="../html-kevin/soporte.php">Soporte</a></li>
 
           <?php
@@ -318,7 +325,7 @@
 
 
   <!-- Footer modificado -->
-  <footer class="fixed-bottom">
+  <footer style="position: relative;">
     <div class="contenedor">
       <div class="columna-pie-de-index">
         <p>&copy; 2024 AgroConnect</p>
@@ -326,17 +333,29 @@
       <div class="columna-pie-de-index">
         <nav>
           <ul>
-            <li><a href="../html-otros/HerraBenAgri.html">Herramientas</a></li>
-            <li><a href="../html-heymmy/Certificaciones.html">Certificaciones</a></li>
-            <li><a href="../html-otros/TerminosCondiciones.html">Términos y condiciones</a></li>
+            <li><a href="../html-otros/herramientas.php">Herramientas</a></li>
+            <li><a href="../html-heymmy/certificaciones.php">Certificaciones</a></li>
+            <li><a href="../html-otros/condiciones.php">Términos y condiciones</a></li>
           </ul>
         </nav>
       </div>
-      <div c    lass="columna-pie-de-index">
+      <div class="columna-pie-de-index">
         <nav>
           <ul>
-            <li><a class="boton boton-primario" href="../html-heymmy/Registro.html">Registrarse</a></li>
-            <li><a class="boton boton-secundario" href="../html-otros/login.html">Iniciar sesión</a></li>
+            <?php
+              // Si el usuario está logueado, mostrar el botón de cerrar sesión
+              if (isset($_SESSION['email'])) {
+            ?>
+              <li><a href="../html-otros/index.php?action=logout" class="boton boton-secundario">Cerrar sesión</a></li>
+            <?php
+              } else {
+            ?>
+              <li><a href="../html-heymmy/registro.php" class="boton boton-primario">Registrarse</a></li>
+              <li><a href="../html-otros/login.php" class="boton boton-secundario">Iniciar sesión</a></li>
+            <?php
+              }
+            ?>  
+
           </ul>
         </nav>
       </div>

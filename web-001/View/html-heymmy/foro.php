@@ -1,20 +1,9 @@
 <?php
     // Imports
-    require_once('../../Controller/soporteController.php');
+    require_once('../../Controller/loginController.php');
 
-    // Iniciar la sesión
+    // Se inicializa la sesion
     session_start();
-
-    if (isset($_GET['action'])) {
-      
-      switch ($_GET['action']) {
-        case 'submitTicket':
-            soporteController::addSupportTicket($_POST);
-            print_r($_POST);  
-
-            break;
-      }
-    }
 
 ?>
 
@@ -23,36 +12,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgroConnect - Soporte</title>
-
-  <!-- Fonts -->
+  <title>Foro y Comunidad - AgroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="styleKevin.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f2f5;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    .contenedor {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px; /* Añadido para espaciado */
+    }
+
+    /* Header */
+    header {
+      background-color: #213435;
+      color: #fff;
+      padding: 10px 0;
+    }
+
+    .logotipo {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .foro-comunidad {
+      text-align: center;
+      margin: 50px auto;
+    }
+
+    .publicaciones {
+      margin-bottom: 50px;
+    }
+
+    .publicacion {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .publicacion h3 {
+      margin-top: 0;
+    }
+
+    .crear-publicacion {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .crear-publicacion form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .crear-publicacion label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .crear-publicacion input, .crear-publicacion textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .crear-publicacion button {
+      width: 100%;
+      background-color: #213435;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .crear-publicacion button:hover {
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #213435;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+    }
+
+    .contenedor-footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .columna-pie-de-index {
+      width: 33.33%;
+      box-sizing: border-box;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .columna-pie-de-index p,
+    .columna-pie-de-index ul {
+      margin: 0;
+    }
+
+    .columna-pie-de-index nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .columna-pie-de-index nav ul li {
+      margin: 5px 0; /* Espaciado vertical entre los elementos de la lista */
+    }
+
+    .columna-pie-de-index nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .columna-pie-de-index nav ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
-  <!-- Header original -->
-  <!-- <header>
-    <div class="contenedor">
-      <a href="index.html" class="logotipo">AgroConnect</a>
-      
-      <nav>
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="acerca.html">Acerca de</a></li>
-          <li><a href="productos.html">Productos</a></li>
-          <li><a href="comofunciona.html">Cómo funciona</a></li>
-          <li><a href="registrarse.html" class="boton boton-primario">Registrarse</a></li>
-          <li><a href="login.html" class="boton boton-secundario">Iniciar sesión</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header> -->
-
+<body>
   <!-- Header modificado -->
   <header>
     <div class="contenedor">
@@ -117,140 +251,53 @@
     </div>
   </header>
 
-  <!-- Breadcrumb Block -->
-  <section style="margin-bottom: 0;">
-    <div class="py-5 color5">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h1 class="fw-bold">Soporte y Ayuda</h1>
-          <svg width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>support</title> <rect width="24" height="24" fill="none"></rect> <path d="M12,2a8,8,0,0,0-8,8v1.9A2.92,2.92,0,0,0,3,14a2.88,2.88,0,0,0,1.94,2.61C6.24,19.72,8.85,22,12,22h3V20H12c-2.26,0-4.31-1.7-5.34-4.39l-.21-.55L5.86,15A1,1,0,0,1,5,14a1,1,0,0,1,.5-.86l.5-.29V11a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1v5H13.91a1.5,1.5,0,1,0-1.52,2H20a2,2,0,0,0,2-2V14a2,2,0,0,0-2-2V10A8,8,0,0,0,12,2Z"></path> </g></svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <main class="main-bg-soporte">
-    <div class="div-bg-soporte">
-
-      <div class="container py-5">
-        <div class="row g-5">
-          <!-- Información de Contacto -->
-          <div class="col-xl-6">
-            <div class="row row-cols-md-2 g-4"> 
-  
-              <!-- Correo -->
-              <div>
-                <div class="color2 text-light d-block p-3">
-                  <div class="d-flex justify-content-start">
-                    <i class="fa-solid fa-envelope h3 pe-2"></i>
-                    <span class="h5">Correo</span>
-                  </div>
-                  <span>soporte@agroconnect.com</span>
-                </div>
-              </div>
-              
-              <!-- Teléfono -->
-              <div>
-                <div class="color2 text-light d-block p-3">
-                  <div class="d-flex justify-content-start">
-                    <i class="fa-solid fa-phone h3 pe-2"></i>
-                    <span class="h5">Teléfono</span>
-                  </div>
-                  <span>+506 2020 2020, +506 4040 4040</span>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Ubicación -->
-            <div class="mt-4">
-                <div class="color2 text-light d-block p-3">
-                  <div class="d-flex justify-content-start">
-                    <i class="fa-solid fa-location-pin h3 pe-2"></i>
-                    <span class="h5">Ubicación</span>
-                  </div>
-                  <span>Calle Central y Primera, Avenida 14, San José, San José</span>
-                </div>
-            </div>
-  
-            <!-- Mapa -->
-            <div>
-              <div class="mt-4 w-100">
-                <iframe class="hvr-shadow" width="100%" height="345" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/distance-area-calculator.html">measure acres/hectares on map</a></iframe>
-              </div>
-            </div>
+  <main>
+    <section class="foro-comunidad">
+      <div class="contenedor">
+        <h2>Foro y Comunidad</h2>
+        
+        <div class="publicaciones" id="publicaciones">
+          <div class="publicacion">
+            <h3>Título de la Publicación</h3>
+            <p class="autor">Por Juan Pérez</p>
+            <p class="fecha">Publicado el 10 de julio de 2024</p>
+            <p class="contenido">
+              Contenido de la publicación. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
-  
-          <!-- Formulario -->
-          <div class="col-xl-6">
-            <h2 class="pb-4 text-light">¡Envíanos un mensaje!</h2>
-            <form action="../html-kevin/soporte.php?action=submitTicket" method="POST" id="soporte-form">
-              <div class="row g-4">
-                <div class="col-6 mb-3">
-                  <label for="nombre" class="form-label text-light">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="John" required>
-                </div>
-                <div class="col-6 mb-3">
-                  <label for="apellido" class="form-label text-light">Apellido</label>
-                  <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Doe" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="correo" class="form-label text-light">Correo</label>
-                <input type="email" class="form-control" id="correo" name="correo" placeholder="john@doe.com" required>
-              </div>
-              <div class="mb-3">
-                <label for="telefono" class="form-label text-light">Teléfono</label>
-                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+506 8888 0000" required>
-              </div>
-              <div class="mb-3">
-                <label for="tema" class="form-label text-light">Tema</label>
-                <select class="form-select" id="tema" name="tema">
-                  <option value="Cotización">Cotización</option>
-                  <option value="Soporte">Soporte</option>
-                  <option value="Sugerencia">Sugerencia</option>
-                  <option value="Reportes">Reportes</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="mensaje" class="form-label text-light" required>Mensaje</label>
-                <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Escribe tu mensaje aquí..."></textarea>
-              </div>
-              <button type="submit" class="btn text-light fw-bold" style="background-color: #648A64;">Enviar mensaje</button>
-            </form>
+
+          <!-- Ejemplo de otra publicación -->
+          <div class="publicacion">
+            <h3>Otra Publicación</h3>
+            <p class="autor">Por María Gómez</p>
+            <p class="fecha">Publicado el 11 de julio de 2024</p>
+            <p class="contenido">
+              Contenido de otra publicación. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <button class="like-btn">👍 Like <span class="like-count">0</span></button>
+            <button class="dislike-btn">👎 Dislike <span class="dislike-count">0</span></button>
           </div>
         </div>
-      </div>
 
-    </div>
+        <div class="crear-publicacion">
+          <h3>Crear Nueva Publicación</h3>
+          <form id="nueva-publicacion-form">
+            <div class="form-group">
+              <label for="titulo">Título</label>
+              <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+              <label for="contenido">Contenido</label>
+              <textarea id="contenido" name="contenido" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="boton boton-primario">Publicar</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
-  
-
-  <!-- Footer original -->
-  <!-- <footer>
-    <div class="contenedor">
-      <div class="columna-pie-de-index">
-        <p>&copy; 2024 AgroConnect</p>
-      </div>
-      <div class="columna-pie-de-index">
-        <nav>
-          <ul>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Productos</a></li>
-            <li><a href="#">Cómo funciona</a></li>
-            <li><a href="TerminosCondiciones.html">Términos y condiciones</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="columna-pie-de-index">
-        <nav>
-          <ul>
-            <li><a href="login.html">Registrarse</a></li>
-            <li><a href="login.html">Iniciar sesión</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </footer> -->
 
   <!-- Footer modificado -->
   <footer style="position: relative;">
@@ -268,7 +315,7 @@
         </nav>
       </div>
       <div class="columna-pie-de-index">
-        <nav>
+        <nav style="margin-left: 20vh;">
           <ul>
             <?php
               // Si el usuario está logueado, mostrar el botón de cerrar sesión
@@ -290,9 +337,6 @@
     </div>
   </footer>
 
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js.js"></script>
+  <script src="foro.js"></script>
 </body>
 </html>
